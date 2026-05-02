@@ -105,7 +105,7 @@ function LoginInner() {
               whileTap={password && !submitting ? { scale: 0.99 } : undefined}
               className={`w-full flex items-center justify-center gap-2 py-3.5 rounded-xl text-sm font-medium transition-all duration-300 ${
                 password && !submitting
-                  ? "bg-accent hover:bg-accent-light text-white hover:shadow-glow"
+                  ? "bg-accent hover:brightness-110 text-navy-950 hover:shadow-glow"
                   : "bg-white/5 text-cream/40 cursor-not-allowed"
               }`}
             >

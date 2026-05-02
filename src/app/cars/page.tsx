@@ -55,14 +55,14 @@ function CarsPageInner() {
         >
           <div className="flex items-center gap-3 mb-4">
             <span className="h-px w-8 bg-accent" />
-            <p className="text-xs uppercase tracking-[0.3em] text-accent font-medium">
+            <p className="text-xs uppercase tracking-[0.3em] text-accent font-semibold">
               Notre flotte
             </p>
           </div>
           <h1 className="text-4xl md:text-5xl font-display font-bold text-cream tracking-tight">
             Nos véhicules
           </h1>
-          <p className="text-cream/50 mt-4 max-w-xl">
+          <p className="text-muted mt-4 max-w-xl">
             Des voitures récentes, bien entretenues et prêtes à prendre la route
             partout en Tunisie.
           </p>
@@ -73,7 +73,7 @@ function CarsPageInner() {
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mb-8 bg-navy-900 border border-accent/20 rounded-2xl p-4 flex flex-wrap items-center gap-4"
+            className="mb-8 bg-navy-900 border border-accent/20 rounded-xl p-4 flex flex-wrap items-center gap-4"
           >
             <span className="text-xs uppercase tracking-[0.2em] text-accent font-semibold">
               Recherche
@@ -98,7 +98,7 @@ function CarsPageInner() {
           {/* Mobile filter toggle */}
           <button
             onClick={() => setShowFilters(!showFilters)}
-            className="lg:hidden fixed bottom-6 right-6 z-40 bg-accent text-white p-4 rounded-full shadow-glow"
+            className="lg:hidden fixed bottom-6 right-6 z-40 bg-accent text-navy-950 p-4 rounded-full shadow-glow"
             aria-label="Toggle filters"
           >
             {showFilters ? <X size={20} /> : <SlidersHorizontal size={20} />}
@@ -125,9 +125,9 @@ function CarsPageInner() {
                         setActiveCategory(cat);
                         setShowFilters(false);
                       }}
-                      className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                      className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
                         activeCategory === cat
-                          ? "bg-accent text-white"
+                          ? "bg-accent text-navy-950"
                           : "bg-white/5 text-cream/60 hover:bg-white/10 hover:text-cream"
                       }`}
                     >

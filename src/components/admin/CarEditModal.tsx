@@ -490,7 +490,7 @@ export default function CarEditModal({
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={handleSubmit}
-                className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-accent hover:bg-accent-light text-white text-sm font-medium transition-all hover:shadow-glow-sm"
+                className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-accent hover:brightness-110 text-navy-950 text-sm font-semibold transition-all hover:shadow-glow-sm"
               >
                 <Check size={14} />
                 {mode === "create" ? "Ajouter" : "Enregistrer"}

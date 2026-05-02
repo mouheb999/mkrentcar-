@@ -161,13 +161,13 @@ export default function AdminDashboardPage() {
       label: "En attente",
       value: stats.pending,
       Icon: Clock,
-      tint: "text-yellow-400 bg-yellow-500/10 border-yellow-500/30",
+      tint: "text-accent bg-accent/10 border-accent/30",
     },
     {
       label: "Contactés",
       value: stats.contacted,
       Icon: PhoneCall,
-      tint: "text-blue-400 bg-blue-500/10 border-blue-500/30",
+      tint: "text-accent bg-accent/10 border-accent/30",
     },
     {
       label: "Confirmées",
@@ -194,13 +194,13 @@ export default function AdminDashboardPage() {
       label: "Revenus ce mois",
       value: `${revenue.monthlyRevenue.toLocaleString("fr-FR")} TND`,
       Icon: TrendingUp,
-      tint: "text-emerald-400 bg-emerald-500/10 border-emerald-500/30",
+      tint: "text-accent bg-accent/10 border-accent/30",
     },
     {
       label: "Réservations confirmées",
       value: revenue.confirmedCount,
       Icon: CalendarCheck,
-      tint: "text-blue-400 bg-blue-500/10 border-blue-500/30",
+      tint: "text-emerald-400 bg-emerald-500/10 border-emerald-500/30",
     },
   ];
 
@@ -253,7 +253,7 @@ export default function AdminDashboardPage() {
           transition={{ delay: 0.1, duration: 0.4 }}
           className="mb-10"
         >
-          <h2 className="text-sm uppercase tracking-[0.2em] text-cream/40 font-semibold mb-4">
+          <h2 className="text-sm uppercase tracking-[0.2em] text-accent font-semibold mb-4">
             Revenus
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -275,7 +275,7 @@ export default function AdminDashboardPage() {
                     <s.Icon size={16} />
                   </div>
                 </div>
-                <p className="text-2xl md:text-3xl font-display font-bold text-cream">
+                <p className="text-2xl md:text-3xl font-display font-bold text-accent">
                   {s.value}
                 </p>
               </motion.div>
@@ -321,7 +321,7 @@ export default function AdminDashboardPage() {
                   onClick={() => setFilter(f.key)}
                   className={`shrink-0 inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-medium border transition-colors ${
                     active
-                      ? "bg-accent text-white border-accent shadow-glow-sm"
+                      ? "bg-accent text-navy-950 border-accent shadow-glow-sm"
                       : "bg-white/5 text-cream/70 border-white/10 hover:border-accent/40 hover:text-cream"
                   }`}
                 >

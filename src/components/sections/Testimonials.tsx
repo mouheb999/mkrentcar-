@@ -1,56 +1,62 @@
 "use client";
 
+import { useState } from "react";
 import { testimonials } from "@/lib/data";
-import AnimatedSection from "@/components/ui/AnimatedSection";
 import { motion } from "framer-motion";
 import { Star } from "lucide-react";
 
 export default function Testimonials() {
+  const [activeIndex, setActiveIndex] = useState(0);
+
   return (
-    <section className="section-padding section-gap bg-navy-900 relative">
-      {/* Smooth fade into next section */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-navy-950 pointer-events-none" />
-      <div className="max-w-7xl mx-auto">
-        <AnimatedSection>
-          <div className="text-center mb-16">
-            <p className="text-xs uppercase tracking-[0.3em] text-accent font-medium mb-3">
-              Témoignages
-            </p>
-            <h2 className="text-4xl md:text-5xl font-display font-bold text-cream tracking-tight">
-              Ils nous font confiance
-            </h2>
-          </div>
-        </AnimatedSection>
+    <section className="bg-[#050505] py-20">
+      <div className="max-w-7xl mx-auto px-8">
+        <p className="text-center text-xs font-bold tracking-[0.3em] text-[#D4AF37] uppercase mb-10">
+          Ce que disent nos clients
+        </p>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {testimonials.map((testimonial, index) => (
+          {testimonials.map((t, i) => (
             <motion.div
-              key={testimonial.id}
-              initial={{ opacity: 0, y: 30 }}
+              key={t.name}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.12, duration: 0.6 }}
-              className="bg-navy-850 rounded-2xl p-8 border border-white/5 hover:border-accent/20 hover:-translate-y-1 transition-all duration-500"
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+              className="bg-[#0A0A0A] border border-[#1A1A1A] rounded-2xl p-6"
             >
-              <div className="flex gap-1 mb-6">
-                {Array.from({ length: testimonial.rating }).map((_, i) => (
-                  <Star
-                    key={i}
-                    size={14}
-                    className="fill-accent text-accent"
-                  />
-                ))}
-              </div>
-              <p className="text-cream/75 text-sm leading-relaxed mb-8">
-                &ldquo;{testimonial.text}&rdquo;
+              {/* Quote mark */}
+              <span className="text-[#D4AF37] text-3xl font-serif leading-none select-none">&ldquo;&ldquo;</span>
+              <p className="text-[#888] text-sm leading-relaxed mt-2 mb-6">
+                {t.text}
               </p>
-              <div className="pt-6 border-t border-white/5">
-                <p className="font-semibold text-cream text-sm">
-                  {testimonial.name}
-                </p>
-                <p className="text-xs text-cream/40 mt-1">{testimonial.role}</p>
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-full bg-[#D4AF37]/20 border border-[#D4AF37]/30 flex items-center justify-center">
+                  <span className="text-[#D4AF37] text-sm font-bold">
+                    {t.name[0]}
+                  </span>
+                </div>
+                <div>
+                  <p className="text-white text-sm font-semibold">{t.name}</p>
+                  <p className="text-[#555] text-xs">{t.role}</p>
+                </div>
               </div>
             </motion.div>
+          ))}
+        </div>
+
+        {/* Dots */}
+        <div className="flex justify-center gap-2 mt-8">
+          {testimonials.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setActiveIndex(i)}
+              className={`w-2 h-2 rounded-full transition-all ${
+                i === activeIndex
+                  ? "bg-[#D4AF37] w-6"
+                  : "bg-[#333]"
+              }`}
+            />
           ))}
         </div>
       </div>

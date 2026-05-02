@@ -1,78 +1,59 @@
 "use client";
 
-import AnimatedSection from "@/components/ui/AnimatedSection";
 import { motion } from "framer-motion";
-import { Car, CalendarDays, CheckCircle2 } from "lucide-react";
+import { Car, Calendar, CheckCircle2, ArrowRight } from "lucide-react";
 
 const steps = [
   {
+    number: "01",
     icon: Car,
     title: "Choisissez votre voiture",
     description:
       "Parcourez notre flotte et sélectionnez le véhicule adapté à vos besoins.",
-    step: "01",
   },
   {
-    icon: CalendarDays,
+    number: "02",
+    icon: Calendar,
     title: "Sélectionnez vos dates",
     description:
       "Choisissez vos dates et votre lieu de prise en charge en toute flexibilité.",
-    step: "02",
   },
   {
+    number: "03",
     icon: CheckCircle2,
     title: "Confirmez et roulez",
     description:
       "Finalisez votre réservation en quelques secondes et profitez de la route.",
-    step: "03",
   },
 ];
 
 export default function HowItWorks() {
   return (
-    <section className="section-padding section-gap bg-navy-950 relative overflow-hidden">
-      <div className="absolute top-1/2 left-0 w-[400px] h-[400px] bg-accent/[0.05] rounded-full blur-[120px] pointer-events-none -translate-y-1/2" />
-      <div className="max-w-7xl mx-auto relative">
-        <AnimatedSection>
-          <div className="text-center mb-20">
-            <div className="inline-flex items-center gap-3 mb-4">
-              <span className="h-px w-8 bg-accent" />
-              <p className="text-xs uppercase tracking-[0.3em] text-accent font-medium">
-                Comment ça marche
-              </p>
-              <span className="h-px w-8 bg-accent" />
-            </div>
-            <h2 className="text-4xl md:text-5xl font-display font-bold text-cream tracking-tight">
-              Réservez en trois étapes
-            </h2>
-          </div>
-        </AnimatedSection>
+    <section className="bg-[#050505] py-20">
+      <div className="max-w-7xl mx-auto px-8">
+        <p className="text-center text-xs font-bold tracking-[0.3em] text-[#D4AF37] uppercase mb-10">
+          Comment ça marche
+        </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
-          {/* Connecting line */}
-          <div className="hidden md:block absolute top-10 left-[16.66%] right-[16.66%] h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-
-          {steps.map((step, index) => (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {steps.map((step, i) => (
             <motion.div
-              key={step.step}
-              initial={{ opacity: 0, y: 30 }}
+              key={step.number}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.15, duration: 0.6 }}
-              className="relative text-center group"
+              transition={{ duration: 0.5, delay: i * 0.15 }}
+              className="relative bg-[#0A0A0A] border border-[#D4AF37]/20 rounded-2xl p-6 overflow-hidden"
             >
-              <div className="relative inline-flex mb-8">
-                <div className="w-20 h-20 rounded-2xl bg-navy-900 border border-white/5 flex items-center justify-center group-hover:bg-accent/10 group-hover:border-accent/40 group-hover:shadow-glow-sm transition-all duration-500">
-                  <step.icon size={26} className="text-accent" />
-                </div>
-                <span className="absolute -top-2 -right-4 text-4xl font-display font-bold text-cream/[0.08]">
-                  {step.step}
-                </span>
+              {/* Large faded number */}
+              <span className="absolute top-3 right-4 text-6xl font-black text-[#D4AF37]/10 leading-none select-none">
+                {step.number}
+              </span>
+              <div className="w-10 h-10 bg-[#D4AF37]/10 rounded-xl flex items-center justify-center mb-4">
+                <step.icon className="w-5 h-5 text-[#D4AF37]" />
               </div>
-              <h3 className="text-xl font-display font-semibold text-cream mb-3">
-                {step.title}
-              </h3>
-              <p className="text-cream/50 text-sm leading-relaxed max-w-xs mx-auto">
+              <h3 className="text-white font-bold mb-2">{step.title}</h3>
+              <p className="text-[#666] text-sm leading-relaxed">
                 {step.description}
               </p>
             </motion.div>

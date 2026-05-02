@@ -77,12 +77,12 @@ export default function AdminTopBar() {
             <Bell size={15} />
           </button>
           <div className="hidden md:flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-accent to-accent-light flex items-center justify-center text-white text-xs font-bold">
-              AG
+            <div className="w-8 h-8 rounded-full bg-accent/20 border border-accent/30 flex items-center justify-center text-accent text-xs font-bold">
+              MK
             </div>
             <div className="leading-tight">
               <p className="text-xs font-medium text-cream">Admin</p>
-              <p className="text-[10px] text-cream/40">ALIA GO</p>
+              <p className="text-[10px] text-cream/40">MK Rent Car</p>
             </div>
           </div>
           <button

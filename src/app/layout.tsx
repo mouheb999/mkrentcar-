@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, DM_Sans } from "next/font/google";
+import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -9,16 +9,16 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
-const dmSans = DM_Sans({
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   variable: "--font-display",
   weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
-  title: "ALIA GO — Location de voitures en Tunisie",
+  title: "MK Rent Car — Location de voitures de luxe en Tunisie",
   description:
-    "Roulez malin, allez plus loin. Des véhicules modernes et fiables aux prix justes, partout en Tunisie.",
+    "Votre voiture, partout en Tunisie. Des véhicules premium, un service impeccable et des prix transparents.",
 };
 
 export default function RootLayout({
@@ -27,7 +27,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="fr" className={`${inter.variable} ${dmSans.variable}`}>
+    <html lang="fr" className={`${inter.variable} ${spaceGrotesk.variable}`}>
       <body className="font-sans antialiased">
         <Navbar />
         <main>{children}</main>

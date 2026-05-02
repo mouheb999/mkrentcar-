@@ -20,12 +20,12 @@ export default function Logo({
       style={useStyle ? { width, height } : undefined}
     >
       <Image
-        src="/alia-go-logo.png"
-        alt="ALIA GO"
+        src="/logo.png"
+        alt="MK Rent Car"
         fill
         priority
         sizes="(max-width: 768px) 160px, 220px"
-        className="object-contain transition-all duration-500 group-hover:drop-shadow-[0_0_20px_rgba(245,93,22,0.65)]"
+        className="object-contain transition-all duration-500 group-hover:drop-shadow-[0_0_20px_rgba(212,175,55,0.5)]"
       />
     </div>
   );

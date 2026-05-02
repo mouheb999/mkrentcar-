@@ -1,52 +1,65 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 export default function CTASection() {
   return (
-    <section className="section-padding py-32 bg-navy-950 relative overflow-hidden">
-      {/* Top fade — blends smoothly from the previous section */}
-      <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-navy-900 via-navy-950/80 to-transparent pointer-events-none z-[1]" />
+    <section className="relative overflow-hidden border-y border-[#1A1A1A]">
+      {/* Background car image — fades from left, clear on left side */}
+      <div className="absolute inset-0">
+        <Image
+          src="/carsMK/cta.png"
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover object-left"
+        />
+        {/* Fade: transparent on far left → dark toward center/right */}
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#0A0A0A]/70 to-[#0A0A0A]" />
+        {/* Full dark overlay to tone down */}
+        <div className="absolute inset-0 bg-[#0A0A0A]/50" />
+        {/* Gold light streak */}
+        <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-[#D4AF37]/40 via-[#D4AF37]/10 to-transparent" />
+      </div>
 
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-accent/15 via-accent/[0.03] to-transparent" />
-      <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-accent/10 rounded-full blur-[140px] pointer-events-none" />
+      <div className="relative z-10 max-w-7xl mx-auto px-8 py-14">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="flex flex-col md:flex-row md:items-center md:justify-between gap-8"
+        >
+          {/* Text — pushed right of the car */}
+          <div className="md:ml-[30%]">
+            <p className="text-[#D4AF37] text-xs font-bold tracking-[0.3em] uppercase mb-3">
+              Prêt à prendre la route ?
+            </p>
+            <h2 className="text-2xl md:text-3xl font-black text-white leading-tight">
+              Votre prochain trajet{" "}
+              <span className="text-[#D4AF37]">commence ici.</span>
+            </h2>
+            <p className="text-[#666] text-sm mt-2">
+              Réservez dès maintenant et profitez d&apos;une expérience premium.
+            </p>
+          </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-        className="relative z-10 max-w-3xl mx-auto text-center"
-      >
-        <div className="inline-flex items-center gap-3 mb-6">
-          <span className="h-px w-8 bg-accent" />
-          <p className="text-xs uppercase tracking-[0.3em] text-accent font-medium">
-            C&apos;est parti
-          </p>
-          <span className="h-px w-8 bg-accent" />
-        </div>
-        <h2 className="text-4xl md:text-6xl font-display font-bold text-cream tracking-tight mb-6">
-          Votre prochain trajet
-          <br />
-          <span className="text-accent">commence ici.</span>
-        </h2>
-        <p className="text-cream/60 text-lg mb-10 max-w-xl mx-auto">
-          Choisissez votre voiture, sélectionnez vos dates et prenez la
-          route en quelques minutes.
-        </p>
-        <Link href="/booking">
-          <motion.button
-            whileHover={{ scale: 1.04 }}
-            whileTap={{ scale: 0.97 }}
-            className="inline-flex items-center gap-3 bg-accent hover:bg-accent-light text-white px-10 py-4 rounded-full font-medium text-base transition-all duration-300 hover:shadow-glow"
-          >
-            Réserver une voiture
-            <ArrowRight size={18} />
-          </motion.button>
-        </Link>
-      </motion.div>
+          {/* Button */}
+          <Link href="/booking" className="shrink-0">
+            <motion.button
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              className="bg-[#D4AF37] text-black font-bold px-8 py-4 rounded-lg hover:bg-[#C49B27] transition-all flex items-center gap-2 text-sm whitespace-nowrap"
+            >
+              Réserver maintenant
+              <ArrowRight size={16} />
+            </motion.button>
+          </Link>
+        </motion.div>
+      </div>
     </section>
   );
 }

@@ -1,47 +1,57 @@
 "use client";
 
+import { useState } from "react";
 import { brands } from "@/lib/data";
-import AnimatedSection from "@/components/ui/AnimatedSection";
-import { motion } from "framer-motion";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function Brands() {
-  return (
-    <section className="section-padding py-20 bg-navy-900 relative">
-      <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-navy-950 to-transparent pointer-events-none" />
-      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-b from-transparent to-navy-950 pointer-events-none" />
-      <div className="max-w-7xl mx-auto">
-        <AnimatedSection>
-          <div className="text-center mb-12">
-            <p className="text-xs uppercase tracking-[0.3em] text-accent font-medium mb-3">
-              Marques de confiance
-            </p>
-            <h2 className="text-3xl md:text-4xl font-display font-bold text-cream tracking-tight">
-              Fiabilité et qualité
-            </h2>
-          </div>
-        </AnimatedSection>
+  const [brandIndex, setBrandIndex] = useState(0);
+  const maxIndex = Math.max(0, brands.length - 5);
 
-        <div className="flex gap-5 overflow-x-auto pb-2 scrollbar-hide snap-x">
-          {brands.map((brand, index) => (
-            <motion.div
-              key={brand.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.05 }}
-              whileHover={{ y: -4 }}
-              className="flex-shrink-0 snap-center group cursor-pointer"
+  return (
+    <section className="border-y border-[#1A1A1A] py-14 bg-[#050505]">
+      <div className="max-w-7xl mx-auto px-8">
+        <p className="text-center text-xs font-bold tracking-[0.3em] text-[#D4AF37] uppercase mb-10">
+          Marques de confiance
+        </p>
+        <div className="relative flex items-center gap-4">
+          <button
+            onClick={() => setBrandIndex(Math.max(0, brandIndex - 1))}
+            className="w-9 h-9 rounded-full border border-[#333] flex items-center justify-center hover:border-[#D4AF37] transition-colors shrink-0"
+          >
+            <ChevronLeft className="w-4 h-4 text-white" />
+          </button>
+          <div className="flex-1 overflow-hidden">
+            <div
+              className="flex gap-4 transition-transform duration-300"
+              style={{
+                transform: `translateX(-${brandIndex * (100 / 8) }%)`,
+              }}
             >
-              <div className="w-36 h-24 rounded-2xl border border-white/5 bg-navy-850 flex items-center justify-center transition-all duration-300 group-hover:border-accent/30 group-hover:bg-navy-800">
-                <span className="text-base font-display font-bold text-cream/30 group-hover:text-cream transition-all duration-500 tracking-wider">
-                  {brand.logo}
-                </span>
-              </div>
-              <p className="text-xs text-cream/40 text-center mt-3 group-hover:text-cream/80 transition-colors">
-                {brand.name}
-              </p>
-            </motion.div>
-          ))}
+              {brands.map((brand) => (
+                <div
+                  key={brand.name}
+                  className="flex-shrink-0 w-[calc(12.5%-14px)] bg-[#0A0A0A] border border-[#1A1A1A] rounded-2xl py-5 flex flex-col items-center gap-3 hover:border-[#D4AF37]/40 transition-colors cursor-pointer group"
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={brand.img}
+                    alt={brand.name}
+                    className="w-10 h-10 object-contain opacity-70 group-hover:opacity-100 transition-opacity"
+                  />
+                  <span className="text-[#555] group-hover:text-white text-[10px] font-bold tracking-widest uppercase transition-colors">
+                    {brand.name}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <button
+            onClick={() => setBrandIndex(Math.min(maxIndex, brandIndex + 1))}
+            className="w-9 h-9 rounded-full border border-[#333] flex items-center justify-center hover:border-[#D4AF37] transition-colors shrink-0"
+          >
+            <ChevronRight className="w-4 h-4 text-white" />
+          </button>
         </div>
       </div>
     </section>

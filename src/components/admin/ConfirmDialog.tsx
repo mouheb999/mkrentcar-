@@ -27,7 +27,7 @@ export default function ConfirmDialog({
   const confirmCls =
     tone === "danger"
       ? "bg-red-500 hover:bg-red-600 text-white"
-      : "bg-accent hover:bg-accent-light text-white";
+      : "bg-accent hover:brightness-110 text-navy-950";
   const iconCls =
     tone === "danger"
       ? "bg-red-500/15 text-red-400 border-red-500/30"

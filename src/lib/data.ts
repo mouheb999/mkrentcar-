@@ -14,13 +14,12 @@ export interface Car {
   gallery: string[];
 }
 
-const IBIZA = "https://catalogue.automobile.tn/big/2025/02/47324.webp?t=1";
-const CLIO = "https://catalogue.automobile.tn/big/2026/01/47555.webp?t=1";
-const SWIFT = "https://catalogue.automobile.tn/big/2025/02/47300.webp?t=1";
-const FABIA = "https://catalogue.automobile.tn/big/2024/02/47102.webp?t=1";
-const POLO = "https://catalogue.automobile.tn/big/2023/03/46892.webp?t=1";
-const I20 =
-  "https://stimg.cardekho.com/images/carexteriorimages/930x620/Hyundai/i20/11092/1755774177956/front-left-side-47.jpg";
+const IBIZA = "/carsMK/seat ibiza.png";
+const CLIO = "/carsMK/renault clio.png";
+const SWIFT = "/carsMK/suzuki swift.png";
+const FABIA = "/carsMK/skoda fabia.png";
+const POLO = "/carsMK/polo volkswagen.png";
+const I20 = "/carsMK/hyundai i20.png";
 
 export const cars: Car[] = [
   {
@@ -122,16 +121,14 @@ export const cars: Car[] = [
 ];
 
 export const brands = [
-  { name: "Volkswagen", logo: "VW" },
-  { name: "Seat", logo: "SEAT" },
-  { name: "Renault", logo: "RENAULT" },
-  { name: "Skoda", logo: "ŠKODA" },
-  { name: "Hyundai", logo: "HYUNDAI" },
-  { name: "Suzuki", logo: "SUZUKI" },
-  { name: "Peugeot", logo: "PEUGEOT" },
-  { name: "Kia", logo: "KIA" },
-  { name: "Toyota", logo: "TOYOTA" },
-  { name: "Dacia", logo: "DACIA" },
+  { name: "Volkswagen", logo: "VW", img: "https://cdn.simpleicons.org/volkswagen/white" },
+  { name: "Seat", logo: "SEAT", img: "https://cdn.simpleicons.org/seat/white" },
+  { name: "Renault", logo: "RENAULT", img: "https://cdn.simpleicons.org/renault/white" },
+  { name: "Skoda", logo: "ŠKODA", img: "https://cdn.simpleicons.org/skoda/white" },
+  { name: "Hyundai", logo: "HYUNDAI", img: "https://cdn.simpleicons.org/hyundai/white" },
+  { name: "Suzuki", logo: "SUZUKI", img: "https://cdn.simpleicons.org/suzuki/white" },
+  { name: "Peugeot", logo: "PEUGEOT", img: "https://cdn.simpleicons.org/peugeot/white" },
+  { name: "Kia", logo: "KIA", img: "https://cdn.simpleicons.org/kia/white" },
 ];
 
 export const testimonials = [
@@ -139,7 +136,7 @@ export const testimonials = [
     id: 1,
     name: "Mohamed Ben Salah",
     role: "Client, Tunis",
-    text: "Service très professionnel, voiture propre et livraison rapide à l'aéroport. Je recommande vivement ALIA GO.",
+    text: "Service très professionnel, voiture propre et livraison rapide à l'aéroport. Je recommande vivement MK Rent Car.",
     rating: 5,
   },
   {

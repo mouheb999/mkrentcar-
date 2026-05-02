@@ -18,8 +18,8 @@
   }
 
   ::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    height: 8px;
   }
   ::-webkit-scrollbar-track {
     @apply bg-navy-950;
@@ -34,7 +34,7 @@
 
 @layer components {
   .glass {
-    @apply bg-navy-900/60 backdrop-blur-xl border border-white/5 shadow-lifted;
+    @apply bg-navy-900/80 backdrop-blur-xl border border-white/5 shadow-lifted;
   }
 
   .glass-light {
@@ -50,11 +50,11 @@
   }
 
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 bg-accent hover:bg-accent-light text-white font-medium rounded-2xl transition-all duration-300 hover:shadow-glow active:scale-[0.98];
+    @apply inline-flex items-center justify-center gap-2 bg-accent hover:brightness-110 text-navy-950 font-semibold rounded-xl transition-all duration-300 hover:shadow-glow active:scale-[0.98];
   }
 
   .btn-ghost {
-    @apply inline-flex items-center justify-center gap-2 border border-white/10 hover:border-accent/40 text-cream hover:text-accent font-medium rounded-2xl transition-all duration-300;
+    @apply inline-flex items-center justify-center gap-2 border border-accent/30 hover:border-accent text-cream hover:text-accent font-medium rounded-xl transition-all duration-300;
   }
 
   .scrollbar-hide::-webkit-scrollbar {
@@ -67,6 +67,10 @@
 
   .field-input {
     @apply w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-cream placeholder:text-cream/30 outline-none focus:border-accent/40 transition-colors;
+  }
+
+  .gold-glow {
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
   }
 }
 

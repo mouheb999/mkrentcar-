@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Image from "next/image";
+import { resolveCarImage } from "@/lib/carImages";
 import { motion } from "framer-motion";
 import {
   Pencil,
@@ -170,7 +171,7 @@ export default function AdminCarsPage() {
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
               onClick={openCreate}
-              className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-accent hover:bg-accent-light text-white text-sm font-medium transition-all hover:shadow-glow-sm"
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-accent hover:brightness-110 text-navy-950 text-sm font-semibold transition-all hover:shadow-glow-sm"
             >
               <Plus size={16} />
               Ajouter une voiture
@@ -225,20 +226,19 @@ export default function AdminCarsPage() {
               >
                 {/* Image */}
                 <div className="relative h-44 bg-gradient-to-br from-white/5 to-white/[0.02] overflow-hidden">
-                  {car.image ? (
-                    <Image
-                      src={car.image}
-                      alt={car.name}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 400px"
-                      unoptimized={car.image.startsWith("data:")}
-                      className="object-contain p-4 transition-transform duration-500 group-hover:scale-[1.04]"
-                    />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center text-cream/20 text-xs">
-                      Aucune image
-                    </div>
-                  )}
+                  {(() => {
+                    const img = resolveCarImage(car.name, car.image);
+                    return (
+                      <Image
+                        src={img}
+                        alt={car.name}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 400px"
+                        unoptimized={img.startsWith("data:")}
+                        className="object-contain p-4 transition-transform duration-500 group-hover:scale-[1.04]"
+                      />
+                    );
+                  })()}
                   <div className="absolute top-3 left-3">
                     <span
                       className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-semibold border backdrop-blur-md ${
@@ -300,7 +300,7 @@ export default function AdminCarsPage() {
                   <div className="mt-auto flex items-center gap-2">
                     <button
                       onClick={() => openEdit(car)}
-                      className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-accent text-white text-xs font-medium hover:bg-accent-light hover:shadow-glow-sm transition-all"
+                      className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-accent text-navy-950 text-xs font-semibold hover:brightness-110 hover:shadow-glow-sm transition-all"
                     >
                       <Pencil size={13} />
                       Modifier

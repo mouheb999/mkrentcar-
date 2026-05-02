@@ -14,7 +14,7 @@ interface ActionButtonsProps {
 }
 
 const WHATSAPP_MESSAGE = encodeURIComponent(
-  "Bonjour, nous vous contactons concernant votre demande de réservation chez ALIA GO."
+  "Bonjour, nous vous contactons concernant votre demande de réservation chez MK Rent Car."
 );
 
 export default function ActionButtons({
@@ -69,7 +69,7 @@ export default function ActionButtons({
           whileHover={{ scale: 1.04 }}
           whileTap={{ scale: 0.96 }}
           onClick={onContact}
-          className={`inline-flex items-center gap-1.5 rounded-xl font-medium transition-colors ${sizeCls} bg-blue-500/15 text-blue-400 border border-blue-500/30 hover:bg-blue-500/25`}
+          className={`inline-flex items-center gap-1.5 rounded-xl font-medium transition-colors ${sizeCls} bg-accent/15 text-accent border border-accent/30 hover:bg-accent/25`}
         >
           <PhoneCall size={13} />
           Contacter le client
@@ -82,7 +82,7 @@ export default function ActionButtons({
           whileHover={{ scale: 1.04 }}
           whileTap={{ scale: 0.96 }}
           onClick={onConfirm}
-          className={`inline-flex items-center gap-1.5 rounded-xl font-medium transition-colors ${sizeCls} bg-accent text-white border border-accent hover:bg-accent-light hover:shadow-glow-sm`}
+          className={`inline-flex items-center gap-1.5 rounded-xl font-semibold transition-colors ${sizeCls} bg-accent text-navy-950 border border-accent hover:brightness-110 hover:shadow-glow-sm`}
         >
           <CheckCircle2 size={13} />
           Accepter

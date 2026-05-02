@@ -17,6 +17,7 @@ import {
   Loader2,
 } from "lucide-react";
 import { useCar } from "@/lib/useCars";
+import { resolveCarImage } from "@/lib/carImages";
 
 function daysBetween(start: string, end: string): number {
   if (!start || !end) return 0;
@@ -40,6 +41,7 @@ function CarDetailInner() {
 
   const [startDate, setStartDate] = useState(urlStart);
   const [endDate, setEndDate] = useState(urlEnd);
+  const [pickupLocation, setPickupLocation] = useState(urlLocation);
   const [selectedImage, setSelectedImage] = useState(0);
 
   // Keep state in sync if URL changes
@@ -50,8 +52,11 @@ function CarDetailInner() {
 
   const gallery = useMemo(() => {
     if (!car) return [] as string[];
-    if (car.gallery && car.gallery.length > 0) return car.gallery;
-    return car.image ? [car.image] : [];
+    const mainImage = resolveCarImage(car.name, car.image);
+    if (car.gallery && car.gallery.length > 0) {
+      return [mainImage, ...car.gallery.slice(1)];
+    }
+    return [mainImage];
   }, [car]);
 
   const days = useMemo(() => {
@@ -65,7 +70,7 @@ function CarDetailInner() {
     qs.set("carId", car.id);
     if (startDate) qs.set("start", startDate);
     if (endDate) qs.set("end", endDate);
-    if (urlLocation) qs.set("location", urlLocation);
+    if (pickupLocation) qs.set("location", pickupLocation);
     router.push(`/booking?${qs.toString()}`);
   };
 
@@ -113,7 +118,7 @@ function CarDetailInner() {
 
   return (
     <div className="pt-28 pb-20">
-      <div className="max-w-7xl mx-auto section-padding">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -121,21 +126,22 @@ function CarDetailInner() {
         >
           <Link
             href="/cars"
-            className="inline-flex items-center gap-2 text-sm text-cream/50 hover:text-accent transition-colors"
+            className="inline-flex items-center gap-2 text-sm text-[#888] hover:text-[#D4AF37] transition-colors"
           >
             <ArrowLeft size={14} />
             Retour à la flotte
           </Link>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
-          {/* Left: Images + Details */}
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-10">
+          {/* Left: Image + Details */}
           <div className="lg:col-span-3 space-y-8">
+            {/* Main image with gold border */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="relative aspect-[16/10] rounded-2xl overflow-hidden bg-navy-850 border border-white/5"
+              className="relative aspect-[16/10] rounded-2xl overflow-hidden bg-[#111] border-2 border-[#D4AF37]/30"
             >
               {gallery.length > 0 ? (
                 <Image
@@ -147,7 +153,7 @@ function CarDetailInner() {
                   className="object-cover transition-all duration-500"
                 />
               ) : (
-                <div className="absolute inset-0 flex items-center justify-center text-cream/20 text-sm">
+                <div className="absolute inset-0 flex items-center justify-center text-[#555] text-sm">
                   Aucune image
                 </div>
               )}
@@ -161,8 +167,8 @@ function CarDetailInner() {
                     onClick={() => setSelectedImage(index)}
                     className={`relative w-24 h-16 rounded-xl overflow-hidden border-2 transition-all duration-300 ${
                       selectedImage === index
-                        ? "border-accent shadow-glow-sm"
-                        : "border-white/5 opacity-60 hover:opacity-100 hover:border-white/20"
+                        ? "border-[#D4AF37]"
+                        : "border-[#1A1A1A] opacity-60 hover:opacity-100 hover:border-[#333]"
                     }`}
                   >
                     <Image
@@ -178,46 +184,48 @@ function CarDetailInner() {
               </div>
             )}
 
+            {/* Car info */}
             <div>
               {car.brand && (
-                <p className="text-xs uppercase tracking-[0.3em] text-accent font-medium mb-2">
+                <p className="text-xs uppercase tracking-[0.3em] text-[#D4AF37] font-bold mb-2">
                   {car.brand}
                 </p>
               )}
-              <h1 className="text-3xl md:text-4xl font-display font-bold text-cream tracking-tight mb-4">
+              <h1 className="text-3xl md:text-4xl font-black text-white tracking-tight mb-3">
                 {car.name}
               </h1>
-              <div className="flex items-center gap-2 mb-6">
+              <div className="flex items-center gap-2 mb-5">
                 <div className="flex gap-0.5">
                   {[1, 2, 3, 4, 5].map((i) => (
                     <Star
                       key={i}
-                      size={12}
-                      className="fill-accent text-accent"
+                      size={14}
+                      className="fill-[#D4AF37] text-[#D4AF37]"
                     />
                   ))}
                 </div>
-                <span className="text-xs text-cream/40">5,0 (48 avis)</span>
+                <span className="text-xs text-[#666]">5,0 (48 avis)</span>
               </div>
               {car.description && (
-                <p className="text-cream/60 leading-relaxed">
+                <p className="text-[#888] leading-relaxed text-sm">
                   {car.description}
                 </p>
               )}
             </div>
 
+            {/* Specs row */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {specs.map((spec) => (
                 <div
                   key={spec.label}
-                  className="bg-navy-900 rounded-2xl p-5 text-center border border-white/5"
+                  className="bg-[#0A0A0A] rounded-2xl p-5 text-center border border-[#1A1A1A]"
                 >
                   <spec.icon
                     size={20}
-                    className="text-accent mx-auto mb-2"
+                    className="text-[#D4AF37] mx-auto mb-2"
                   />
-                  <p className="text-xs text-cream/40 mb-1">{spec.label}</p>
-                  <p className="text-sm font-semibold text-cream">
+                  <p className="text-xs text-[#666] mb-1">{spec.label}</p>
+                  <p className="text-sm font-bold text-white">
                     {spec.value}
                   </p>
                 </div>
@@ -232,67 +240,83 @@ function CarDetailInner() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className="bg-navy-900 rounded-2xl border border-white/5 shadow-lifted p-8"
+                className="bg-[#0A0A0A] rounded-2xl border border-[#1A1A1A] p-7"
               >
                 <div className="flex items-baseline gap-2 mb-8">
-                  <span className="text-4xl font-bold text-cream">
+                  <span className="text-4xl font-black text-white">
                     {car.price}
                   </span>
-                  <span className="text-accent font-semibold">TND</span>
-                  <span className="text-cream/40 text-sm">/ jour</span>
+                  <span className="text-[#D4AF37] font-semibold text-sm">TND</span>
+                  <span className="text-[#666] text-sm">/ jour</span>
                 </div>
 
                 <div className="space-y-4 mb-6">
                   <div>
-                    <label className="text-xs uppercase tracking-wider text-cream/50 font-medium block mb-2">
+                    <label className="text-[10px] uppercase tracking-widest text-[#888] font-bold block mb-2">
                       Date de départ
                     </label>
-                    <div className="flex items-center gap-3 bg-white/5 rounded-xl px-4 py-3 border border-white/5 focus-within:border-accent/40 transition-colors">
-                      <Calendar size={16} className="text-accent" />
+                    <div className="flex items-center gap-3 bg-[#111] rounded-xl px-4 py-3 border border-[#1A1A1A] focus-within:border-[#D4AF37]/40 transition-colors">
+                      <Calendar size={16} className="text-[#D4AF37]" />
                       <input
                         type="date"
                         min={today}
                         value={startDate}
                         onChange={(e) => setStartDate(e.target.value)}
-                        className="bg-transparent text-sm text-cream outline-none w-full [color-scheme:dark]"
+                        className="bg-transparent text-sm text-white outline-none w-full [color-scheme:dark]"
+                        placeholder="jj/mm/aaaa"
                       />
                     </div>
                   </div>
                   <div>
-                    <label className="text-xs uppercase tracking-wider text-cream/50 font-medium block mb-2">
+                    <label className="text-[10px] uppercase tracking-widest text-[#888] font-bold block mb-2">
                       Date de retour
                     </label>
-                    <div className="flex items-center gap-3 bg-white/5 rounded-xl px-4 py-3 border border-white/5 focus-within:border-accent/40 transition-colors">
-                      <Calendar size={16} className="text-accent" />
+                    <div className="flex items-center gap-3 bg-[#111] rounded-xl px-4 py-3 border border-[#1A1A1A] focus-within:border-[#D4AF37]/40 transition-colors">
+                      <Calendar size={16} className="text-[#D4AF37]" />
                       <input
                         type="date"
                         min={startDate || today}
                         value={endDate}
                         onChange={(e) => setEndDate(e.target.value)}
-                        className="bg-transparent text-sm text-cream outline-none w-full [color-scheme:dark]"
+                        className="bg-transparent text-sm text-white outline-none w-full [color-scheme:dark]"
+                        placeholder="jj/mm/aaaa"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="text-[10px] uppercase tracking-widest text-[#888] font-bold block mb-2">
+                      Lieu de prise en charge
+                    </label>
+                    <div className="flex items-center gap-3 bg-[#111] rounded-xl px-4 py-3 border border-[#1A1A1A] focus-within:border-[#D4AF37]/40 transition-colors">
+                      <input
+                        type="text"
+                        value={pickupLocation}
+                        onChange={(e) => setPickupLocation(e.target.value)}
+                        placeholder="Tunis, Sousse, Djerba…"
+                        className="bg-transparent text-sm text-white outline-none w-full placeholder:text-[#555]"
                       />
                     </div>
                   </div>
                 </div>
 
-                <div className="border-t border-white/5 pt-6 mb-6">
+                <div className="border-t border-[#1A1A1A] pt-5 mb-5">
                   <div className="flex justify-between text-sm mb-3">
-                    <span className="text-cream/50">
+                    <span className="text-[#888]">
                       {car.price} TND × {days} jours
                     </span>
-                    <span className="text-cream font-medium">
+                    <span className="text-white font-semibold">
                       {car.price * days} TND
                     </span>
                   </div>
                   <div className="flex justify-between text-sm mb-3">
-                    <span className="text-cream/50">Frais de service</span>
-                    <span className="text-cream font-medium">
+                    <span className="text-[#888]">Frais de service</span>
+                    <span className="text-white font-semibold">
                       {serviceFee} TND
                     </span>
                   </div>
-                  <div className="flex justify-between text-base font-bold mt-4 pt-4 border-t border-white/5 text-cream">
-                    <span>Total</span>
-                    <span className="text-accent">{total} TND</span>
+                  <div className="flex justify-between text-base font-black mt-4 pt-4 border-t border-[#1A1A1A]">
+                    <span className="text-white">Total</span>
+                    <span className="text-[#D4AF37]">{total} TND</span>
                   </div>
                 </div>
 
@@ -301,10 +325,10 @@ function CarDetailInner() {
                   whileTap={{ scale: 0.98 }}
                   disabled={!car.available}
                   onClick={handleReserve}
-                  className={`w-full py-4 rounded-xl font-medium transition-all duration-300 flex items-center justify-center gap-2 ${
+                  className={`w-full py-4 rounded-full font-bold transition-all duration-300 flex items-center justify-center gap-2 ${
                     car.available
-                      ? "bg-accent hover:bg-accent-light text-white hover:shadow-glow"
-                      : "bg-white/5 text-cream/40 cursor-not-allowed"
+                      ? "bg-[#D4AF37] hover:bg-[#C49B27] text-black"
+                      : "bg-[#111] text-[#555] cursor-not-allowed"
                   }`}
                 >
                   {car.available ? "Envoyer la demande" : "Indisponible"}
@@ -312,12 +336,12 @@ function CarDetailInner() {
                 </motion.button>
 
                 {!datesValid && car.available && (
-                  <p className="text-[11px] text-cream/40 text-center mt-3">
+                  <p className="text-[11px] text-[#666] text-center mt-3">
                     Sélectionnez vos dates pour continuer.
                   </p>
                 )}
 
-                <p className="text-xs text-cream/40 text-center mt-4">
+                <p className="text-xs text-[#666] text-center mt-4">
                   Annulation gratuite jusqu&rsquo;à 24h avant la prise en charge
                 </p>
               </motion.div>

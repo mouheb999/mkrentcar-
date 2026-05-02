@@ -1,215 +1,100 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef, useState } from "react";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { MapPin, Calendar, ArrowRight, Search } from "lucide-react";
+import { ArrowRight, Truck, DollarSign, Zap, Sparkles, ExternalLink } from "lucide-react";
 
-// Volkswagen Golf 8 — local asset in /public
-const HERO_IMG = "/hero.jpg";
+const HERO_IMG = "/carsMK/bmmW.png";
+
+const stats = [
+  { icon: Truck, title: "Livraison partout", sub: "en Tunisie" },
+  { icon: DollarSign, title: "Prix compétitifs", sub: "et transparents" },
+  { icon: Zap, title: "Service rapide", sub: "et disponible 24/7" },
+  { icon: Sparkles, title: "Voitures propres", sub: "et récentes" },
+];
 
 export default function Hero() {
-  const ref = useRef<HTMLElement>(null);
-  const router = useRouter();
-  const today = new Date().toISOString().split("T")[0];
-
-  // Booking bar state
-  const [location, setLocation] = useState("");
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
-
-  const handleSearch = () => {
-    const params = new URLSearchParams();
-    if (location.trim()) params.set("location", location.trim());
-    if (startDate) params.set("start", startDate);
-    if (endDate) params.set("end", endDate);
-    const qs = params.toString();
-    router.push(qs ? `/cars?${qs}` : "/cars");
-  };
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end start"],
-  });
-
-  // Parallax on the background image
-  const y = useTransform(scrollYProgress, [0, 1], [0, 160]);
-  // Fade content as user scrolls
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.55], [1, 0]);
-  // Smoothly fade the bottom of the image into the navy background as user scrolls
-  const bottomFadeOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.85, 1, 1]);
-  const bottomFadeHeight = useTransform(
-    scrollYProgress,
-    [0, 1],
-    ["45%", "100%"]
-  );
-
   return (
-    <section
-      ref={ref}
-      className="relative h-[100svh] min-h-[620px] md:min-h-[720px] overflow-hidden bg-navy-950"
-    >
-      {/* Background image with parallax */}
-      <motion.div style={{ y }} className="absolute inset-0">
+    <section className="relative min-h-screen flex items-center overflow-hidden pt-20 bg-[#050505]">
+      {/* Full background — clear on right, fades to dark/blurry on left */}
+      <div className="absolute inset-0">
         <Image
           src={HERO_IMG}
-          alt="Volkswagen Golf 8"
+          alt="MK Rent Car"
           fill
           priority
           sizes="100vw"
-          className="object-cover object-center"
+          className="object-cover object-right"
         />
-        {/* Layered gradients for depth + readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-navy-950/70 via-navy-950/30 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-r from-navy-950/90 via-navy-950/40 to-transparent md:via-transparent" />
-      </motion.div>
+        {/* Left-to-right fade: solid black left → transparent right (reveals car) */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#050505] via-[#050505]/85 to-transparent" />
+        {/* Extra blur layer on the left half only */}
+        <div className="absolute inset-0 backdrop-blur-sm [mask-image:linear-gradient(to_right,black_30%,transparent_60%)]" />
+        {/* Bottom fade for stats bar */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent" />
+        {/* Top vignette */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#050505]/60 via-transparent to-transparent" />
+      </div>
 
-      {/* Bottom fade — grows/strengthens as user scrolls for a smooth dissolve */}
-      <motion.div
-        style={{
-          opacity: bottomFadeOpacity,
-          height: bottomFadeHeight,
-        }}
-        className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-navy-950 via-navy-950/80 to-transparent pointer-events-none z-[1]"
-      />
-
-      {/* Ambient orange glow behind car */}
-      <div className="absolute top-1/3 right-[10%] w-[500px] md:w-[650px] h-[500px] md:h-[650px] bg-accent/20 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute bottom-10 left-1/4 w-[300px] md:w-[400px] h-[200px] md:h-[300px] bg-accent/10 rounded-full blur-[100px] pointer-events-none" />
-
-      {/* Content */}
-      <motion.div
-        style={{ opacity: contentOpacity }}
-        className="relative z-10 h-full flex flex-col justify-center px-6 md:px-12 lg:px-20 xl:px-32 max-w-7xl mx-auto pt-24 md:pt-28"
-      >
+      {/* Content — text on left, car shows through bg on right */}
+      <div className="relative z-10 max-w-7xl mx-auto px-8 w-full">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.6 }}
-          className="flex items-center gap-3 mb-4 md:mb-6"
-        >
-          <span className="h-px w-8 md:w-10 bg-accent" />
-          <span className="text-accent text-[10px] md:text-xs uppercase tracking-[0.25em] md:tracking-[0.3em] font-medium">
-            Location de voitures — Tunisie
-          </span>
-        </motion.div>
-
-        <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
-          className="text-4xl sm:text-5xl md:text-7xl lg:text-[5.5rem] font-display font-bold text-cream leading-[0.95] tracking-tight mb-4 md:mb-6 max-w-3xl text-balance"
+          transition={{ duration: 0.8 }}
+          className="max-w-xl"
         >
-          Votre voiture.
-          <br />
-          <span className="text-accent">Votre liberté.</span>
-        </motion.h1>
-
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6, duration: 0.6 }}
-          className="text-cream/70 text-base md:text-lg max-w-lg mb-8 md:mb-10"
-        >
-          Des véhicules modernes et fiables aux prix justes. Réservez en
-          quelques minutes, partez en quelques heures.
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8, duration: 0.6 }}
-          className="flex flex-wrap items-center gap-3 md:gap-4 mb-10 md:mb-16"
-        >
-          <Link href="/cars">
-            <motion.button
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
-              className="flex items-center gap-2 bg-accent hover:bg-accent-light text-white px-6 md:px-8 py-3.5 md:py-4 rounded-2xl font-medium text-sm transition-all duration-300 hover:shadow-glow"
-            >
-              Voir les véhicules
-              <ArrowRight size={16} />
-            </motion.button>
-          </Link>
-          <Link
-            href="/booking"
-            className="px-6 md:px-8 py-3.5 md:py-4 border border-white/15 hover:border-accent/50 hover:text-accent text-cream/80 text-sm font-medium rounded-2xl transition-all duration-300"
-          >
-            Réserver
-          </Link>
-        </motion.div>
-
-        {/* Floating booking bar — hidden on mobile for a cleaner hero */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1, duration: 0.8 }}
-          className="hidden md:block w-full max-w-4xl"
-        >
-          <div className="glass rounded-2xl p-2.5">
-            <div className="flex items-stretch gap-2">
-              <div className="flex-1 flex items-center gap-3 bg-white/5 hover:bg-white/10 transition-colors rounded-xl px-4 py-3">
-                <MapPin size={16} className="text-accent shrink-0" />
-                <div className="min-w-0 flex-1">
-                  <p className="text-[10px] uppercase tracking-wider text-cream/40 font-medium">
-                    Lieu de prise en charge
-                  </p>
-                  <input
-                    type="text"
-                    value={location}
-                    onChange={(e) => setLocation(e.target.value)}
-                    placeholder="Tunis, Sousse, Djerba…"
-                    className="w-full bg-transparent text-sm text-cream placeholder:text-cream/30 outline-none"
-                  />
-                </div>
-              </div>
-
-              <div className="flex-1 flex items-center gap-3 bg-white/5 hover:bg-white/10 transition-colors rounded-xl px-4 py-3">
-                <Calendar size={16} className="text-accent shrink-0" />
-                <div className="min-w-0 flex-1">
-                  <p className="text-[10px] uppercase tracking-wider text-cream/40 font-medium">
-                    Date de départ
-                  </p>
-                  <input
-                    type="date"
-                    min={today}
-                    value={startDate}
-                    onChange={(e) => setStartDate(e.target.value)}
-                    className="w-full bg-transparent text-sm text-cream placeholder:text-cream/30 outline-none [color-scheme:dark]"
-                  />
-                </div>
-              </div>
-
-              <div className="flex-1 flex items-center gap-3 bg-white/5 hover:bg-white/10 transition-colors rounded-xl px-4 py-3">
-                <Calendar size={16} className="text-accent shrink-0" />
-                <div className="min-w-0 flex-1">
-                  <p className="text-[10px] uppercase tracking-wider text-cream/40 font-medium">
-                    Date de retour
-                  </p>
-                  <input
-                    type="date"
-                    min={startDate || today}
-                    value={endDate}
-                    onChange={(e) => setEndDate(e.target.value)}
-                    className="w-full bg-transparent text-sm text-cream placeholder:text-cream/30 outline-none [color-scheme:dark]"
-                  />
-                </div>
-              </div>
-
+          <p className="text-[#D4AF37] text-xs font-bold tracking-[0.3em] uppercase mb-4">
+            MK Rent Car — Tunisie
+          </p>
+          <h1 className="text-5xl lg:text-6xl font-black leading-tight mb-6 text-white">
+            Votre voiture,
+            <br />
+            <span className="text-[#D4AF37]">partout en Tunisie.</span>
+          </h1>
+          <p className="text-[#888] text-base mb-10 max-w-md leading-relaxed">
+            Des véhicules premium, un service impeccable
+            et des prix transparents.
+          </p>
+          <div className="flex flex-wrap gap-4">
+            <Link href="/cars">
               <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={handleSearch}
-                className="flex items-center justify-center gap-2 bg-accent hover:bg-accent-light text-white px-7 py-4 rounded-xl font-medium text-sm transition-all duration-300 hover:shadow-glow whitespace-nowrap"
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                className="bg-[#D4AF37] text-black font-bold px-7 py-3.5 rounded-full hover:bg-[#C49B27] transition-all flex items-center gap-2 text-sm"
               >
-                <Search size={16} />
-                Rechercher
+                Voir les véhicules
+                <ArrowRight size={16} />
               </motion.button>
-            </div>
+            </Link>
+            <Link
+              href="/booking"
+              className="border border-[#333] text-white font-semibold px-7 py-3.5 rounded-full hover:border-[#D4AF37] transition-all flex items-center gap-2 text-sm"
+            >
+              Nous contacter
+              <ExternalLink size={14} />
+            </Link>
           </div>
         </motion.div>
-      </motion.div>
+      </div>
+
+      {/* Stats bar at bottom */}
+      <div className="absolute bottom-0 left-0 right-0 border-t border-[#1A1A1A] bg-[#0A0A0A]/90 backdrop-blur-sm z-10">
+        <div className="max-w-7xl mx-auto px-8 py-5 grid grid-cols-2 md:grid-cols-4 gap-6">
+          {stats.map((item) => (
+            <div key={item.title} className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-lg bg-[#D4AF37]/10 border border-[#D4AF37]/20 flex items-center justify-center">
+                <item.icon size={16} className="text-[#D4AF37]" />
+              </div>
+              <div>
+                <p className="text-white text-sm font-semibold">{item.title}</p>
+                <p className="text-[#666] text-xs">{item.sub}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </section>
   );
 }

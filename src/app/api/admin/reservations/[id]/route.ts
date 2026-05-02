@@ -9,7 +9,7 @@ type AllowedStatus = (typeof ALLOWED_STATUS)[number];
 
 /**
  * PATCH /api/admin/reservations/[id]
- * Body: { status: 'pending' | 'confirmed' | 'cancelled' }
+ * Body: { status: 'pending' | 'contacted' | 'confirmed' | 'cancelled' }
  */
 export async function PATCH(
   req: Request,

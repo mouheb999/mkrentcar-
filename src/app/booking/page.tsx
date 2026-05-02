@@ -16,6 +16,7 @@ import {
   Home,
 } from "lucide-react";
 import { useCar } from "@/lib/useCars";
+import { resolveCarImage } from "@/lib/carImages";
 import {
   createReservation,
   findOverlappingReservations,
@@ -59,10 +60,7 @@ function BookingInner() {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
 
-  // Skip step 1 if we arrive with valid carId + dates
-  const hasPreselectedDates =
-    Boolean(carIdParam) && Boolean(urlStart) && Boolean(urlEnd);
-  const [currentStep, setCurrentStep] = useState(hasPreselectedDates ? 2 : 1);
+  const [currentStep, setCurrentStep] = useState(1);
 
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -153,7 +151,7 @@ function BookingInner() {
           </p>
           <Link
             href="/cars"
-            className="inline-flex items-center gap-2 bg-accent hover:bg-accent-light text-white px-6 py-3 rounded-xl text-sm font-medium transition-all"
+            className="inline-flex items-center gap-2 bg-accent hover:brightness-110 text-navy-950 px-6 py-3 rounded-xl text-sm font-semibold transition-all"
           >
             Voir les véhicules
             <ArrowRight size={14} />
@@ -215,7 +213,7 @@ function BookingInner() {
                 <div
                   className={`w-11 h-11 rounded-full flex items-center justify-center text-sm font-medium transition-all duration-500 ${
                     currentStep >= step.id
-                      ? "bg-accent text-white shadow-glow-sm"
+                      ? "bg-accent text-navy-950 shadow-glow-sm"
                       : "bg-white/5 text-cream/40 border border-white/5"
                   }`}
                 >
@@ -446,7 +444,7 @@ function BookingInner() {
                       </Link>
                       <Link
                         href="/cars"
-                        className="inline-flex items-center gap-2 bg-accent hover:bg-accent-light text-white px-5 py-3 rounded-xl text-sm font-medium transition-all hover:shadow-glow"
+                        className="inline-flex items-center gap-2 bg-accent hover:brightness-110 text-navy-950 px-5 py-3 rounded-xl text-sm font-semibold transition-all hover:shadow-glow"
                       >
                         Voir d&rsquo;autres véhicules
                         <ArrowRight size={14} />
@@ -460,7 +458,7 @@ function BookingInner() {
             {/* Navigation */}
             {currentStep < 3 && (
               <div className="flex items-center justify-between mt-8">
-                {currentStep > 1 && !hasPreselectedDates ? (
+                {currentStep > 1 ? (
                   <button
                     onClick={prev}
                     className="flex items-center gap-2 text-sm font-medium text-cream/50 hover:text-cream transition-colors"
@@ -480,7 +478,7 @@ function BookingInner() {
                     whileTap={canContinueStep1 ? { scale: 0.98 } : undefined}
                     className={`flex items-center gap-2 px-8 py-3.5 rounded-xl text-sm font-medium transition-all duration-300 ${
                       canContinueStep1
-                        ? "bg-accent hover:bg-accent-light text-white hover:shadow-glow"
+                        ? "bg-accent hover:brightness-110 text-navy-950 hover:shadow-glow"
                         : "bg-white/5 text-cream/40 cursor-not-allowed"
                     }`}
                   >
@@ -501,7 +499,7 @@ function BookingInner() {
                     }
                     className={`flex items-center gap-2 px-8 py-3.5 rounded-xl text-sm font-medium transition-all duration-300 ${
                       canSubmit && !submitting
-                        ? "bg-accent hover:bg-accent-light text-white hover:shadow-glow"
+                        ? "bg-accent hover:brightness-110 text-navy-950 hover:shadow-glow"
                         : "bg-white/5 text-cream/40 cursor-not-allowed"
                     }`}
                   >
@@ -530,18 +528,21 @@ function BookingInner() {
               transition={{ delay: 0.2 }}
               className="lg:sticky lg:top-28 h-fit bg-navy-900 rounded-2xl border border-white/5 shadow-lifted overflow-hidden"
             >
-              {car.image && (
-                <div className="relative h-40 bg-gradient-to-br from-white/5 to-white/[0.02]">
-                  <Image
-                    src={car.image}
-                    alt={car.name}
-                    fill
-                    sizes="300px"
-                    unoptimized={car.image.startsWith("data:")}
-                    className="object-contain p-3"
-                  />
-                </div>
-              )}
+              {(() => {
+                const img = resolveCarImage(car.name, car.image);
+                return (
+                  <div className="relative h-40 bg-gradient-to-br from-white/5 to-white/[0.02]">
+                    <Image
+                      src={img}
+                      alt={car.name}
+                      fill
+                      sizes="300px"
+                      unoptimized={img.startsWith("data:")}
+                      className="object-contain p-3"
+                    />
+                  </div>
+                );
+              })()}
               <div className="p-6 space-y-4">
                 <div>
                   {car.brand && (

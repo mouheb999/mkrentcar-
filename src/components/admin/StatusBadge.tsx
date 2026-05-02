@@ -11,12 +11,12 @@ interface StatusBadgeProps {
 const STATUS_MAP: Record<ReservationStatus, { label: string; cls: string; Icon: typeof Clock }> = {
   pending: {
     label: "En attente",
-    cls: "bg-yellow-500/10 text-yellow-400 border-yellow-500/30",
+    cls: "bg-accent/10 text-accent border-accent/30",
     Icon: Clock,
   },
   contacted: {
     label: "Contacté",
-    cls: "bg-blue-500/10 text-blue-400 border-blue-500/30",
+    cls: "bg-accent/10 text-accent border-accent/30",
     Icon: PhoneCall,
   },
   confirmed: {
@@ -24,12 +24,17 @@ const STATUS_MAP: Record<ReservationStatus, { label: string; cls: string; Icon: 
     cls: "bg-emerald-500/10 text-emerald-400 border-emerald-500/30",
     Icon: CheckCircle2,
   },
-  cancelled: {
-    label: "Annulée",
+  refused: {
+    label: "Refusée",
     cls: "bg-red-500/10 text-red-400 border-red-500/30",
     Icon: XCircle,
   },
-};
+  cancelled: {
+    label: "Refusée",
+    cls: "bg-red-500/10 text-red-400 border-red-500/30",
+    Icon: XCircle,
+  },
+} as Record<string, { label: string; cls: string; Icon: typeof Clock }>;
 
 export default function StatusBadge({
   status,

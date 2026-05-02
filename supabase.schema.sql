@@ -39,7 +39,7 @@ create table if not exists public.reservations (
   end_date        date not null,
   pickup_location text,
   status          text not null default 'pending'
-                  check (status in ('pending','confirmed','cancelled')),
+                  check (status in ('pending','contacted','confirmed','cancelled')),
   created_at      timestamptz not null default now(),
 
   constraint reservation_dates_chk check (end_date >= start_date)
