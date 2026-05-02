@@ -10,7 +10,7 @@ export default function Testimonials() {
 
   return (
     <section className="bg-[#050505] py-20">
-      <div className="max-w-7xl mx-auto px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-8">
         <p className="text-center text-xs font-bold tracking-[0.3em] text-[#D4AF37] uppercase mb-10">
           Ce que disent nos clients
         </p>

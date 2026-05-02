@@ -13,7 +13,7 @@ export default function FeaturedCars() {
 
   return (
     <section className="bg-[#050505] py-20">
-      <div className="max-w-7xl mx-auto px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-8">
         {/* ── Featured Car Card ── */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}

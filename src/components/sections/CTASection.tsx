@@ -25,7 +25,7 @@ export default function CTASection() {
         <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-[#D4AF37]/40 via-[#D4AF37]/10 to-transparent" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-8 py-14">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-8 py-10 sm:py-14">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -48,7 +48,7 @@ export default function CTASection() {
           </div>
 
           {/* Button */}
-          <Link href="/booking" className="shrink-0">
+          <Link href="/reserve" className="shrink-0">
             <motion.button
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}

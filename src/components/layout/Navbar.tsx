@@ -111,7 +111,7 @@ export default function Navbar() {
                 );
               })}
               <Link
-                href="/booking"
+                href="/reserve"
                 onClick={() => setMobileOpen(false)}
                 className="mt-3 px-5 py-3 bg-accent text-navy-950 text-center text-sm font-semibold rounded-xl hover:shadow-glow transition-all"
               >

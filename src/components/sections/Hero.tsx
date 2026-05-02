@@ -38,7 +38,7 @@ export default function Hero() {
       </div>
 
       {/* Content — text on left, car shows through bg on right */}
-      <div className="relative z-10 max-w-7xl mx-auto px-8 w-full">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-8 w-full">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -48,7 +48,7 @@ export default function Hero() {
           <p className="text-[#D4AF37] text-xs font-bold tracking-[0.3em] uppercase mb-4">
             MK Rent Car — Tunisie
           </p>
-          <h1 className="text-5xl lg:text-6xl font-black leading-tight mb-6 text-white">
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black leading-tight mb-6 text-white">
             Votre voiture,
             <br />
             <span className="text-[#D4AF37]">partout en Tunisie.</span>
@@ -69,10 +69,10 @@ export default function Hero() {
               </motion.button>
             </Link>
             <Link
-              href="/booking"
+              href="/reserve"
               className="border border-[#333] text-white font-semibold px-7 py-3.5 rounded-full hover:border-[#D4AF37] transition-all flex items-center gap-2 text-sm"
             >
-              Nous contacter
+              Réserver
               <ExternalLink size={14} />
             </Link>
           </div>
@@ -81,7 +81,7 @@ export default function Hero() {
 
       {/* Stats bar at bottom */}
       <div className="absolute bottom-0 left-0 right-0 border-t border-[#1A1A1A] bg-[#0A0A0A]/90 backdrop-blur-sm z-10">
-        <div className="max-w-7xl mx-auto px-8 py-5 grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-8 py-4 sm:py-5 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
           {stats.map((item) => (
             <div key={item.title} className="flex items-center gap-3">
               <div className="w-9 h-9 rounded-lg bg-[#D4AF37]/10 border border-[#D4AF37]/20 flex items-center justify-center">

@@ -457,17 +457,17 @@ function BookingInner() {
 
             {/* Navigation */}
             {currentStep < 3 && (
-              <div className="flex items-center justify-between mt-8">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between mt-8 gap-3">
                 {currentStep > 1 ? (
                   <button
                     onClick={prev}
-                    className="flex items-center gap-2 text-sm font-medium text-cream/50 hover:text-cream transition-colors"
+                    className="flex items-center justify-center gap-2 text-sm font-medium text-cream/50 hover:text-cream transition-colors py-3"
                   >
                     <ArrowLeft size={14} />
                     Retour
                   </button>
                 ) : (
-                  <div />
+                  <div className="hidden sm:block" />
                 )}
 
                 {currentStep === 1 && (
@@ -476,7 +476,7 @@ function BookingInner() {
                     disabled={!canContinueStep1}
                     whileHover={canContinueStep1 ? { scale: 1.02 } : undefined}
                     whileTap={canContinueStep1 ? { scale: 0.98 } : undefined}
-                    className={`flex items-center gap-2 px-8 py-3.5 rounded-xl text-sm font-medium transition-all duration-300 ${
+                    className={`flex items-center justify-center gap-2 px-4 sm:px-8 py-3.5 rounded-xl text-sm font-medium transition-all duration-300 w-full sm:w-auto ${
                       canContinueStep1
                         ? "bg-accent hover:brightness-110 text-navy-950 hover:shadow-glow"
                         : "bg-white/5 text-cream/40 cursor-not-allowed"
@@ -497,7 +497,7 @@ function BookingInner() {
                     whileTap={
                       canSubmit && !submitting ? { scale: 0.98 } : undefined
                     }
-                    className={`flex items-center gap-2 px-8 py-3.5 rounded-xl text-sm font-medium transition-all duration-300 ${
+                    className={`flex items-center justify-center gap-2 px-4 sm:px-8 py-3.5 rounded-xl text-sm font-medium transition-all duration-300 w-full sm:w-auto ${
                       canSubmit && !submitting
                         ? "bg-accent hover:brightness-110 text-navy-950 hover:shadow-glow"
                         : "bg-white/5 text-cream/40 cursor-not-allowed"
