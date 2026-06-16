@@ -32,8 +32,8 @@ export default function CarCard({ car, index = 0, queryString }: CarCardProps) {
         <div className="relative bg-[#0A0A0A] border border-[#1A1A1A] rounded-2xl overflow-hidden hover:border-[#D4AF37] hover:shadow-[0_0_25px_rgba(212,175,55,0.1)] transition-all duration-400 flex flex-col">
           {/* Badges */}
           <div className="flex items-center justify-between px-4 pt-4">
-            <span className="text-[10px] font-bold tracking-widest text-[#888] uppercase">
-              {car.category ?? "Véhicule"}
+            <span className="text-[10px] font-bold tracking-widest text-[#D4AF37] uppercase">
+              {car.tier ?? car.category ?? "Véhicule"}
             </span>
             {car.available && (
               <span className="text-[10px] font-bold bg-[#D4AF37] text-black px-2 py-0.5 rounded-full">
@@ -57,7 +57,21 @@ export default function CarCard({ car, index = 0, queryString }: CarCardProps) {
 
           {/* Info */}
           <div className="px-4 pb-4 flex flex-col flex-1">
-            <h3 className="text-white font-bold text-lg mt-3 mb-3">{car.name}</h3>
+            <h3 className="text-white font-bold text-lg mt-3 mb-2">{car.name}</h3>
+
+            {/* Service badges */}
+            {car.services && car.services.length > 0 && (
+              <div className="flex flex-wrap gap-1.5 mb-3">
+                {car.services.map((s) => (
+                  <span
+                    key={s}
+                    className="text-[9px] font-semibold uppercase tracking-wide text-[#D4AF37] bg-[#D4AF37]/10 border border-[#D4AF37]/20 px-2 py-0.5 rounded-full"
+                  >
+                    {s}
+                  </span>
+                ))}
+              </div>
+            )}
 
             {/* Specs row */}
             <div className="grid grid-cols-3 gap-2 mb-4">

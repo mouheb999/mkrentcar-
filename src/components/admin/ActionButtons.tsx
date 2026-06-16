@@ -14,7 +14,7 @@ interface ActionButtonsProps {
 }
 
 const WHATSAPP_MESSAGE = encodeURIComponent(
-  "Bonjour, nous vous contactons concernant votre demande de réservation chez MK Rent Car."
+  "Bonjour, nous vous contactons concernant votre demande de réservation chez Saoudy Rent Car."
 );
 
 export default function ActionButtons({

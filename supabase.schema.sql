@@ -1,5 +1,5 @@
 -- ============================================================
--- ALIA GO — Supabase schema
+-- SAOUDY RENT CAR — Supabase schema
 -- Run this in the Supabase SQL Editor once.
 -- ============================================================
 
@@ -22,10 +22,16 @@ create table if not exists public.cars (
   horsepower   int,
   year         int,
   category     text,
+  tier         text,
+  services     text[]      default '{}',
   description  text,
   gallery      text[]      default '{}',
   created_at   timestamptz not null default now()
 );
+
+-- If upgrading an existing database, add the new columns:
+alter table public.cars add column if not exists tier     text;
+alter table public.cars add column if not exists services text[] default '{}';
 
 -- ----------------------------------------------------------------
 -- RESERVATIONS
@@ -138,27 +144,35 @@ revoke all on function public.is_car_available(uuid, date, date) from public;
 grant execute on function public.is_car_available(uuid, date, date) to anon, authenticated;
 
 -- ----------------------------------------------------------------
--- SEED — starter cars (matches your existing demo data).
+-- SEED — Saoudy Rent Car fleet.
+-- Images are served locally from /public/cars/ so the `image` column
+-- stores the public path used by the Next.js app.
 -- Comment out if you'd rather add cars via the admin UI.
 -- ----------------------------------------------------------------
-insert into public.cars (name, brand, image, price, fuel, transmission, seats, horsepower, year, category, description, gallery)
+insert into public.cars (name, brand, image, price, fuel, transmission, seats, horsepower, year, category, tier, services, description, gallery)
 values
-  ('Seat Ibiza','Seat','https://catalogue.automobile.tn/big/2025/02/47324.webp?t=1',140,'Essence','Manuelle',5,110,2024,'Citadine',
-   'Design affirmé et conduite agile. La Seat Ibiza est la compagne idéale pour la ville comme pour l''autoroute.',
-   array['https://catalogue.automobile.tn/big/2025/02/47324.webp?t=1']),
-  ('Renault Clio 5','Renault','https://catalogue.automobile.tn/big/2026/01/47555.webp?t=1',130,'Diesel','Manuelle',5,100,2024,'Citadine',
-   'Raffinée, économique et confortable. La Clio 5 allie le style français à une consommation maîtrisée.',
-   array['https://catalogue.automobile.tn/big/2026/01/47555.webp?t=1']),
-  ('Suzuki Swift','Suzuki','https://catalogue.automobile.tn/big/2025/02/47300.webp?t=1',120,'Essence','Manuelle',5,83,2024,'Citadine',
-   'Maniable et économique. La Swift concentre du caractère dans un format idéal pour la ville.',
-   array['https://catalogue.automobile.tn/big/2025/02/47300.webp?t=1']),
-  ('Skoda Fabia','Skoda','https://catalogue.automobile.tn/big/2024/02/47102.webp?t=1',135,'Essence','Automatique',5,95,2024,'Compacte',
-   'Spacieuse, bien finie et surprenante. La Fabia offre un habitacle généreux et un comportement très sûr.',
-   array['https://catalogue.automobile.tn/big/2024/02/47102.webp?t=1']),
-  ('Hyundai i20','Hyundai','https://stimg.cardekho.com/images/carexteriorimages/930x620/Hyundai/i20/11092/1755774177956/front-left-side-47.jpg',125,'Essence','Manuelle',5,100,2024,'Citadine',
-   'Technologique et facile à vivre. La i20 offre confort, sécurité et un look moderne dans un format compact.',
-   array['https://stimg.cardekho.com/images/carexteriorimages/930x620/Hyundai/i20/11092/1755774177956/front-left-side-47.jpg']),
-  ('Volkswagen Polo','Volkswagen','https://catalogue.automobile.tn/big/2023/03/46892.webp?t=1',150,'Essence','Automatique',5,110,2024,'Compacte',
-   'Le savoir-faire allemand en format compact. La Polo propose une conduite sereine et une finition soignée.',
-   array['https://catalogue.automobile.tn/big/2023/03/46892.webp?t=1'])
+  ('BMW 5 Series','BMW','/cars/bmw-5-series-front.png',400,'Diesel','Automatique',5,252,2023,'Berline','Berline de Luxe',
+   array['Location','Chauffeur'],
+   'L''alliance parfaite entre puissance et raffinement. La BMW Série 5 offre une expérience de conduite executive, idéale pour les déplacements d''affaires et les occasions prestigieuses.',
+   array['/cars/bmw-5-series-front.png','/cars/bmw-5-series-back.png']),
+  ('Mercedes E-Class','Mercedes-Benz','/cars/mercedes-e-class-front.png',450,'Diesel','Automatique',5,245,2022,'Berline','Berline Exécutive',
+   array['Location','Chauffeur'],
+   'Le summum du confort allemand. La Mercedes Classe E incarne l''élégance executive avec un habitacle silencieux et une finition irréprochable pour vos transferts VIP.',
+   array['/cars/mercedes-e-class-front.png','/cars/mercedes-e-class-back.png']),
+  ('Mercedes C-Class 2017','Mercedes-Benz','/cars/mercedes-c-class-front.png',280,'Diesel','Automatique',5,184,2017,'Berline','Berline Affaires',
+   array['Location','Chauffeur'],
+   'Sportive et élégante, la Mercedes Classe C allie prestige et agilité. Un choix premium accessible pour vos trajets professionnels et personnels.',
+   array['/cars/mercedes-c-class-front.png','/cars/mercedes-c-class-back.png']),
+  ('Volkswagen Golf 8','Volkswagen','/cars/vw-golf-8-front.png',180,'Essence','Automatique',5,150,2022,'Compacte','Compacte Premium',
+   array['Location'],
+   'Compacte, moderne et technologique. La Golf 8 offre une conduite dynamique et un équipement de pointe dans un format idéal pour la ville comme pour la route.',
+   array['/cars/vw-golf-8-front.png','/cars/vw-golf-8-back.png']),
+  ('Volkswagen Multivan T6','Volkswagen','/cars/vw-multivan-front.png',500,'Diesel','Automatique',7,204,2021,'Van','Van VIP',
+   array['Transfert VIP','Transport de Groupe','Chauffeur'],
+   'Le transport de groupe sans compromis sur le luxe. Le Multivan T6 accueille jusqu''à 7 passagers dans un confort spacieux, parfait pour les transferts VIP et le tourisme.',
+   array['/cars/vw-multivan-front.png','/cars/vw-multivan-back.png']),
+  ('Fiat Scudo','Fiat','/cars/fiat-scudo-front.png',350,'Diesel','Manuelle',8,145,2022,'Van','Van Transfert',
+   array['Transfert Aéroport','Transport de Groupe','Chauffeur'],
+   'Spacieux et fiable, le Fiat Scudo est la solution idéale pour les transferts aéroport et le transport de groupes jusqu''à 8 personnes avec bagages.',
+   array['/cars/fiat-scudo-front.png','/cars/fiat-scudo-back.png'])
 on conflict do nothing;

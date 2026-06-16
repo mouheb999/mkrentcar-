@@ -11,7 +11,7 @@ export default function CTASection() {
       {/* Background car image — fades from left, clear on left side */}
       <div className="absolute inset-0">
         <Image
-          src="/carsMK/cta.png"
+          src="/cars/mercedes-e-class-front.png"
           alt=""
           fill
           sizes="100vw"

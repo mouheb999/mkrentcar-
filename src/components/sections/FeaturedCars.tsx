@@ -32,20 +32,20 @@ export default function FeaturedCars() {
                   Meilleur Choix
                 </p>
                 <h2 className="text-3xl lg:text-4xl font-black text-white mb-3">
-                  Renault Clio 5
+                  BMW 5 Series
                 </h2>
                 <p className="text-[#777] text-sm mb-6 leading-relaxed max-w-sm">
-                  Économique, confortable et idéale pour vos trajets en ville
-                  comme sur route.
+                  Puissance et raffinement réunis. La berline executive idéale
+                  pour vos déplacements d&apos;affaires et transferts VIP.
                 </p>
 
                 {/* Specs row */}
                 <div className="flex flex-wrap gap-4 mb-8">
                   {[
                     { icon: <Users className="w-4 h-4" />, value: "5", label: "Places" },
-                    { icon: <Zap className="w-4 h-4" />, value: "100 ch", label: "Puissance" },
+                    { icon: <Zap className="w-4 h-4" />, value: "252 ch", label: "Puissance" },
                     { icon: <Fuel className="w-4 h-4" />, value: "Diesel", label: "Carburant" },
-                    { icon: <Settings className="w-4 h-4" />, value: "Manuelle", label: "Transmission" },
+                    { icon: <Settings className="w-4 h-4" />, value: "Automatique", label: "Transmission" },
                   ].map((spec) => (
                     <div
                       key={spec.label}
@@ -62,13 +62,13 @@ export default function FeaturedCars() {
                   <div>
                     <p className="text-[#555] text-xs">À partir de</p>
                     <p className="text-[#D4AF37] text-3xl font-black">
-                      130{" "}
+                      400{" "}
                       <span className="text-sm text-[#888] font-normal">
                         TND / jour
                       </span>
                     </p>
                   </div>
-                  <Link href="/cars">
+                  <Link href="/cars/bmw-5-series">
                     <motion.button
                       whileHover={{ scale: 1.03 }}
                       whileTap={{ scale: 0.97 }}
@@ -84,8 +84,8 @@ export default function FeaturedCars() {
               {/* Right — car image */}
               <div className="relative h-64 lg:h-72">
                 <Image
-                  src="/carsMK/featured.png"
-                  alt="Renault Clio 5"
+                  src="/cars/bmw-5-series-front.png"
+                  alt="BMW 5 Series"
                   fill
                   className="object-contain"
                   sizes="50vw"

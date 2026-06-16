@@ -78,11 +78,11 @@ export default function AdminTopBar() {
           </button>
           <div className="hidden md:flex items-center gap-2.5">
             <div className="w-8 h-8 rounded-full bg-accent/20 border border-accent/30 flex items-center justify-center text-accent text-xs font-bold">
-              MK
+              SR
             </div>
             <div className="leading-tight">
               <p className="text-xs font-medium text-cream">Admin</p>
-              <p className="text-[10px] text-cream/40">MK Rent Car</p>
+              <p className="text-[10px] text-cream/40">Saoudy Rent Car</p>
             </div>
           </div>
           <button

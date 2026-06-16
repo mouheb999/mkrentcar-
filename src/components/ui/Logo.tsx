@@ -21,7 +21,7 @@ export default function Logo({
     >
       <Image
         src="/logo.png"
-        alt="MK Rent Car"
+        alt="Saoudy Rent Car"
         fill
         priority
         sizes="(max-width: 768px) 160px, 220px"

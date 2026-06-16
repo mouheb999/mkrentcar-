@@ -1,4 +1,5 @@
 import Hero from "@/components/sections/Hero";
+import Services from "@/components/sections/Services";
 import FeaturedCars from "@/components/sections/FeaturedCars";
 import Brands from "@/components/sections/Brands";
 import HowItWorks from "@/components/sections/HowItWorks";
@@ -9,6 +10,7 @@ export default function Home() {
   return (
     <>
       <Hero />
+      <Services />
       <FeaturedCars />
       <Brands />
       <HowItWorks />

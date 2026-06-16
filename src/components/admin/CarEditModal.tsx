@@ -32,7 +32,14 @@ const TRANSMISSION_OPTIONS: AdminCar["transmission"][] = [
   "Manuelle",
   "Automatique",
 ];
-const CATEGORY_OPTIONS = ["Citadine", "Compacte", "Berline", "SUV"];
+const CATEGORY_OPTIONS = ["Berline", "Compacte", "Van", "SUV"];
+const SERVICE_OPTIONS = [
+  "Location",
+  "Chauffeur",
+  "Transfert VIP",
+  "Transfert Aéroport",
+  "Transport de Groupe",
+];
 
 const EMPTY: AdminCar = {
   id: "",
@@ -41,11 +48,13 @@ const EMPTY: AdminCar = {
   image: "",
   price: 100,
   seats: 5,
-  transmission: "Manuelle",
-  fuel: "Essence",
-  horsepower: 100,
+  transmission: "Automatique",
+  fuel: "Diesel",
+  horsepower: 150,
   year: new Date().getFullYear(),
-  category: "Citadine",
+  category: "Berline",
+  tier: "",
+  services: ["Location"],
   description: "",
   gallery: [],
   available: true,
@@ -313,7 +322,7 @@ export default function CarEditModal({
                     type="text"
                     value={form.name}
                     onChange={(e) => update("name", e.target.value)}
-                    placeholder="Seat Ibiza"
+                    placeholder="BMW 5 Series"
                     className="field-input"
                   />
                 </Field>
@@ -322,7 +331,7 @@ export default function CarEditModal({
                     type="text"
                     value={form.brand}
                     onChange={(e) => update("brand", e.target.value)}
-                    placeholder="Seat"
+                    placeholder="BMW"
                     className="field-input"
                   />
                 </Field>
@@ -421,6 +430,50 @@ export default function CarEditModal({
                     ))}
                   </select>
                 </Field>
+              </div>
+
+              {/* Tier (positioning label) */}
+              <Field label="Positionnement (badge)">
+                <input
+                  type="text"
+                  value={form.tier}
+                  onChange={(e) => update("tier", e.target.value)}
+                  placeholder="Berline de Luxe"
+                  className="field-input"
+                />
+              </Field>
+
+              {/* Services */}
+              <div>
+                <label className="text-xs uppercase tracking-wider text-cream/50 font-medium block mb-2">
+                  Services proposés
+                </label>
+                <div className="flex flex-wrap gap-2">
+                  {SERVICE_OPTIONS.map((svc) => {
+                    const active = form.services.includes(svc);
+                    return (
+                      <button
+                        key={svc}
+                        type="button"
+                        onClick={() =>
+                          setForm((prev) => ({
+                            ...prev,
+                            services: active
+                              ? prev.services.filter((s) => s !== svc)
+                              : [...prev.services, svc],
+                          }))
+                        }
+                        className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-colors ${
+                          active
+                            ? "bg-accent text-navy-950 border-accent"
+                            : "bg-white/5 text-cream/70 border-white/10 hover:border-accent/40"
+                        }`}
+                      >
+                        {svc}
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
 
               {/* Description */}

@@ -17,6 +17,8 @@ export interface AdminCar {
   horsepower: number;
   year: number;
   category: string;
+  tier: string;
+  services: string[];
   description: string;
   gallery: string[];
   available: boolean;
@@ -43,7 +45,9 @@ export function fromCarRow(row: CarRow): AdminCar {
     fuel: normaliseFuel(row.fuel),
     horsepower: row.horsepower ?? 100,
     year: row.year ?? new Date().getFullYear(),
-    category: row.category ?? "Citadine",
+    category: row.category ?? "Berline",
+    tier: row.tier ?? "",
+    services: row.services ?? [],
     description: row.description ?? "",
     gallery: row.gallery ?? [],
     available: row.available,
@@ -68,6 +72,8 @@ export function toCarInsert(
     horsepower: car.horsepower,
     year: car.year,
     category: car.category,
+    tier: car.tier.trim() || null,
+    services: car.services,
     description: car.description || null,
     gallery: car.gallery,
     available: car.available,

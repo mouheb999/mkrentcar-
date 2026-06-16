@@ -16,9 +16,27 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "MK Rent Car — Location de voitures de luxe en Tunisie",
+  title: "Saoudy Rent Car | Luxury Car Rental & VIP Transfers Tunisia",
   description:
-    "Votre voiture, partout en Tunisie. Des véhicules premium, un service impeccable et des prix transparents.",
+    "Premium car rental, chauffeur service, airport transfers, and executive transportation across Tunisia.",
+  keywords: [
+    "car rental Tunisia",
+    "luxury car rental Tunisia",
+    "VIP transfer Tunisia",
+    "airport transfer Tunisia",
+    "chauffeur service Tunisia",
+    "BMW rental Tunisia",
+    "Mercedes rental Tunisia",
+  ],
+  icons: { icon: "/logo.png" },
+  openGraph: {
+    title: "Saoudy Rent Car | Luxury Car Rental & VIP Transfers Tunisia",
+    description:
+      "Premium car rental, chauffeur service, airport transfers, and executive transportation across Tunisia.",
+    images: ["/logo.png"],
+    locale: "fr_TN",
+    type: "website",
+  },
 };
 
 export default function RootLayout({

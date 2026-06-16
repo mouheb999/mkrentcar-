@@ -16,6 +16,8 @@ export interface CarRow {
   horsepower: number | null;
   year: number | null;
   category: string | null;
+  tier: string | null;
+  services: string[] | null;
   description: string | null;
   gallery: string[] | null;
   created_at: string;
