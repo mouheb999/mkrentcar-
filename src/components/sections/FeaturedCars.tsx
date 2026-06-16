@@ -3,9 +3,86 @@
 import { motion } from "framer-motion";
 import { useCars } from "@/lib/useCars";
 import CarCard from "@/components/ui/CarCard";
+import { resolveCarImage } from "@/lib/carImages";
+import type { CarRow } from "@/lib/database.types";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Loader2, Users, Zap, Fuel, Settings } from "lucide-react";
+
+/** Premium horizontal product card — mobile fleet. */
+function MobileFleetCard({ car, index }: { car: CarRow; index: number }) {
+  const img = resolveCarImage(car.name, car.image);
+  const isDataUrl = img.startsWith("data:");
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 26 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.55, delay: index * 0.06 }}
+    >
+      <Link href={`/cars/${car.id}`} className="block">
+        <div className="relative flex gap-4 overflow-hidden rounded-3xl border border-[#D4AF37]/12 bg-[#0B0B0B] p-3.5 shadow-[0_0_30px_rgba(212,175,55,0.04)]">
+          {/* top gold hairline */}
+          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#D4AF37]/40 to-transparent" />
+
+          {/* Large product image */}
+          <div className="relative aspect-[5/4] w-[46%] shrink-0 self-center">
+            <div className="absolute inset-0 rounded-2xl bg-[radial-gradient(ellipse_at_center,rgba(212,175,55,0.10),transparent_65%)]" />
+            <Image
+              src={img}
+              alt={car.name}
+              fill
+              unoptimized={isDataUrl}
+              sizes="50vw"
+              className="object-contain"
+            />
+          </div>
+
+          {/* Metadata */}
+          <div className="flex min-w-0 flex-1 flex-col py-1">
+            <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#D4AF37]">
+              {car.tier ?? car.category ?? "Véhicule"}
+            </p>
+            <h3 className="mt-1.5 font-display text-lg font-bold leading-tight text-white">
+              {car.name}
+            </h3>
+
+            <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-[#888]">
+              <span className="inline-flex items-center gap-1">
+                <Users className="h-3 w-3 text-[#D4AF37]" />
+                {car.seats ?? 5}
+              </span>
+              <span className="inline-flex items-center gap-1">
+                <Fuel className="h-3 w-3 text-[#D4AF37]" />
+                {car.fuel ?? "—"}
+              </span>
+              <span className="inline-flex items-center gap-1">
+                <Settings className="h-3 w-3 text-[#D4AF37]" />
+                {car.transmission === "Automatique" ? "Auto" : "Man."}
+              </span>
+            </div>
+
+            <div className="mt-auto flex items-end justify-between pt-3">
+              <div>
+                <p className="text-[10px] text-[#666]">À partir de</p>
+                <p className="font-display text-lg font-black text-[#D4AF37]">
+                  {car.price}
+                  <span className="ml-1 text-[11px] font-normal text-[#888]">
+                    TND/j
+                  </span>
+                </p>
+              </div>
+              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#D4AF37] text-black shadow-[0_0_20px_rgba(212,175,55,0.25)]">
+                <ArrowRight size={16} />
+              </span>
+            </div>
+          </div>
+        </div>
+      </Link>
+    </motion.div>
+  );
+}
 
 export default function FeaturedCars() {
   const { cars, loading, error } = useCars();
@@ -14,6 +91,53 @@ export default function FeaturedCars() {
   return (
     <section className="bg-[#050505] py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-8">
+        {/* ===================== MOBILE FLEET ===================== */}
+        <div className="md:hidden">
+          <div className="mb-9">
+            <p className="mb-2.5 text-[11px] font-bold uppercase tracking-[0.32em] text-[#D4AF37]">
+              Notre Flotte
+            </p>
+            <h2 className="font-display text-[2rem] font-bold leading-tight text-white">
+              Six véhicules,
+              <br />
+              chacun d&apos;exception.
+            </h2>
+          </div>
+
+          {loading ? (
+            <div className="flex items-center justify-center py-16 text-[#888]">
+              <Loader2 size={20} className="mr-3 animate-spin text-[#D4AF37]" />
+              Chargement…
+            </div>
+          ) : error ? (
+            <div className="rounded-2xl border border-red-500/30 bg-red-500/10 p-6 text-sm text-red-400">
+              {error}
+            </div>
+          ) : featured.length === 0 ? (
+            <p className="py-16 text-center text-[#888]">
+              Aucun véhicule disponible pour le moment.
+            </p>
+          ) : (
+            <div className="flex flex-col gap-5">
+              {featured.map((car, index) => (
+                <MobileFleetCard key={car.id} car={car} index={index} />
+              ))}
+            </div>
+          )}
+
+          <div className="mt-12 text-center">
+            <Link
+              href="/cars"
+              className="inline-flex items-center gap-2 rounded-full border border-[#D4AF37]/40 px-7 py-3.5 text-sm font-semibold text-[#D4AF37]"
+            >
+              Voir tous les véhicules
+              <ArrowRight size={15} />
+            </Link>
+          </div>
+        </div>
+
+        {/* ===================== DESKTOP FLEET ===================== */}
+        <div className="hidden md:block">
         {/* ── Featured Car Card ── */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -135,15 +259,6 @@ export default function FeaturedCars() {
             ))}
           </div>
         )}
-
-        <div className="mt-12 text-center md:hidden">
-          <Link
-            href="/cars"
-            className="inline-flex items-center gap-2 text-sm font-medium text-[#D4AF37]"
-          >
-            Voir tous les véhicules
-            <ArrowRight size={14} />
-          </Link>
         </div>
       </div>
     </section>
