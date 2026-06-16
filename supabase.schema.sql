@@ -159,7 +159,7 @@ values
    array['Location','Chauffeur'],
    'Le summum du confort allemand. La Mercedes Classe E incarne l''élégance executive avec un habitacle silencieux et une finition irréprochable pour vos transferts VIP.',
    array['/cars/mercedes-e-class-front.png','/cars/mercedes-e-class-back.png']),
-  ('Mercedes C-Class 2017','Mercedes-Benz','/cars/mercedes-c-class-front.png',280,'Diesel','Automatique',5,184,2017,'Berline','Berline Affaires',
+  ('Mercedes C-Class','Mercedes-Benz','/cars/mercedes-c-class-front.png',280,'Diesel','Automatique',5,184,2017,'Berline','Berline Affaires',
    array['Location','Chauffeur'],
    'Sportive et élégante, la Mercedes Classe C allie prestige et agilité. Un choix premium accessible pour vos trajets professionnels et personnels.',
    array['/cars/mercedes-c-class-front.png','/cars/mercedes-c-class-back.png']),

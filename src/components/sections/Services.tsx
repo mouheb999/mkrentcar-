@@ -7,7 +7,7 @@ import { services } from "@/lib/services";
 
 export default function Services() {
   return (
-    <section className="bg-[#080808] py-20 border-y border-[#1A1A1A]">
+    <section className="hidden md:block bg-[#080808] py-20 border-y border-[#1A1A1A]">
       <div className="max-w-7xl mx-auto px-4 sm:px-8">
         <div className="text-center mb-14">
           <p className="text-[#D4AF37] text-xs font-bold tracking-[0.3em] uppercase mb-3">
