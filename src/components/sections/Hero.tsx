@@ -54,24 +54,68 @@ const ctaButtons = (
   </div>
 );
 
+/** Floating gold light particles — subtle cinematic atmosphere. */
+function GoldParticles() {
+  const dots = [
+    { left: "12%", top: "30%", size: 4, delay: 0 },
+    { left: "82%", top: "22%", size: 3, delay: 0.8 },
+    { left: "68%", top: "48%", size: 5, delay: 1.6 },
+    { left: "26%", top: "62%", size: 3, delay: 0.4 },
+    { left: "92%", top: "58%", size: 4, delay: 2.1 },
+    { left: "45%", top: "18%", size: 2, delay: 1.2 },
+  ];
+  return (
+    <div className="pointer-events-none absolute inset-0 z-[5] overflow-hidden">
+      {dots.map((d, i) => (
+        <motion.span
+          key={i}
+          className="absolute rounded-full bg-[#D4AF37]"
+          style={{
+            left: d.left,
+            top: d.top,
+            width: d.size,
+            height: d.size,
+            boxShadow: "0 0 8px rgba(212,175,55,0.7)",
+          }}
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: [0, 0.8, 0], scale: [0.5, 1.2, 0.5], y: [0, -18, 0] }}
+          transition={{
+            duration: 5,
+            delay: d.delay,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
 function MobileHero() {
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
   });
-  const carY = useTransform(scrollYProgress, [0, 1], [0, -70]);
-  const glowOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0.25]);
+  const carY = useTransform(scrollYProgress, [0, 1], [0, -60]);
+  const glowOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0.2]);
 
   return (
     <section
       ref={ref}
-      className="md:hidden relative overflow-hidden bg-[#050505]"
+      className="md:hidden relative flex min-h-[100svh] flex-col overflow-hidden bg-[#050505]"
     >
-      {/* Ambient gold halo behind the headline */}
-      <div className="pointer-events-none absolute -top-32 left-1/2 -translate-x-1/2 h-[440px] w-[150%] bg-[radial-gradient(ellipse_at_center,rgba(212,175,55,0.10),transparent_62%)]" />
+      {/* Large gold radial glow rising from behind the vehicle */}
+      <motion.div
+        style={{ opacity: glowOpacity }}
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-0 h-[78vh] bg-[radial-gradient(circle_at_50%_92%,rgba(212,175,55,0.22),rgba(212,175,55,0.06)_38%,transparent_68%)]"
+      />
+      {/* Ambient halo behind the headline */}
+      <div className="pointer-events-none absolute -top-24 left-1/2 z-0 h-[380px] w-[150%] -translate-x-1/2 bg-[radial-gradient(ellipse_at_center,rgba(212,175,55,0.08),transparent_60%)]" />
 
-      {/* ── Content (text sits ABOVE the car, never over it) ── */}
+      <GoldParticles />
+
+      {/* ── Content ── */}
       <motion.div
         variants={stagger}
         initial="hidden"
@@ -91,28 +135,31 @@ function MobileHero() {
 
         <motion.p
           variants={rise}
-          className="mt-9 text-[11px] font-bold uppercase tracking-[0.42em] text-[#D4AF37]"
+          className="mt-10 text-[11px] font-bold uppercase tracking-[0.42em] text-[#D4AF37]"
         >
           Saoudy Rent Car — Tunisie
         </motion.p>
 
         <motion.h1
           variants={rise}
-          className="mt-4 font-display text-[2.7rem] font-bold leading-[1.04] text-white"
+          className="mt-5 font-display text-[3.25rem] font-bold leading-[0.98] tracking-tight text-white"
         >
           Le luxe en
           <br />
-          mouvement,
-          <br />
-          <span className="text-[#D4AF37]">partout en Tunisie.</span>
+          <span className="text-[#D4AF37]">mouvement.</span>
         </motion.h1>
+
+        {/* Gold divider */}
+        <motion.div
+          variants={rise}
+          className="mt-6 h-px w-16 bg-gradient-to-r from-[#D4AF37] to-transparent"
+        />
 
         <motion.p
           variants={rise}
-          className="mt-6 max-w-[22rem] text-base leading-relaxed text-[#9a9a9a]"
+          className="mt-6 max-w-[20rem] text-base leading-relaxed text-[#9a9a9a]"
         >
-          Location premium, transferts VIP et services de chauffeur avec une
-          flotte moderne BMW, Mercedes, Volkswagen et Fiat.
+          Transferts VIP &amp; chauffeur privé.
         </motion.p>
 
         <motion.div variants={rise} className="mt-9 flex flex-col gap-3">
@@ -139,57 +186,28 @@ function MobileHero() {
         </motion.div>
       </motion.div>
 
-      {/* ── BMW product showcase BELOW the content ── */}
-      <div className="relative mt-12">
-        {/* Gold floor glow under the car */}
-        <motion.div
-          style={{ opacity: glowOpacity }}
-          className="pointer-events-none absolute bottom-12 left-1/2 -translate-x-1/2 h-[260px] w-[125%] bg-[radial-gradient(ellipse_at_center,rgba(212,175,55,0.14),transparent_60%)]"
-        />
-        <motion.div
-          initial={{ opacity: 0, scale: 1.04 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
-          style={{ y: carY }}
-          className="relative h-[52vh] w-full"
-        >
-          <Image
-            src={HERO_IMG_MOBILE}
-            alt="Saoudy Rent Car — BMW 5 Series"
-            fill
-            priority
-            sizes="100vw"
-            className="object-contain object-bottom"
-          />
-          {/* Fade the image edges into the black page */}
-          <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#050505] to-transparent" />
-          <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#050505] to-transparent" />
-        </motion.div>
-      </div>
+      {/* Push the car to the bottom of the viewport */}
+      <div className="flex-1" />
 
-      {/* ── Trust panels — luxury glass dashboard cards ── */}
-      <div className="relative z-10 -mt-4 px-6 pb-20">
-        <div className="grid grid-cols-2 gap-3.5">
-          {stats.map((item, i) => (
-            <motion.div
-              key={item.title}
-              initial={{ opacity: 0, y: 22 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.55, delay: i * 0.08 }}
-              className="rounded-2xl border border-[#D4AF37]/15 bg-white/[0.03] p-5 backdrop-blur-sm shadow-[0_0_30px_rgba(212,175,55,0.05)]"
-            >
-              <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-[#D4AF37]/25 bg-[#D4AF37]/10 shadow-[0_0_18px_rgba(212,175,55,0.18)]">
-                <item.icon size={17} className="text-[#D4AF37]" />
-              </div>
-              <p className="mt-4 text-sm font-semibold text-white">
-                {item.title}
-              </p>
-              <p className="mt-0.5 text-xs text-[#777]">{item.sub}</p>
-            </motion.div>
-          ))}
-        </div>
-      </div>
+      {/* ── BMW emerging from darkness — artwork, not a card ── */}
+      <motion.div
+        initial={{ opacity: 0, scale: 1.06 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+        style={{ y: carY }}
+        className="relative z-[6] -mt-6 h-[46vh] w-full"
+      >
+        <Image
+          src={HERO_IMG_MOBILE}
+          alt="Saoudy Rent Car — BMW 5 Series"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-top [mask-image:linear-gradient(to_bottom,transparent,black_20%,black_82%,transparent)] [-webkit-mask-image:linear-gradient(to_bottom,transparent,black_20%,black_82%,transparent)]"
+        />
+        {/* Fade-to-black at the very bottom */}
+        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#050505] via-[#050505]/70 to-transparent" />
+      </motion.div>
     </section>
   );
 }

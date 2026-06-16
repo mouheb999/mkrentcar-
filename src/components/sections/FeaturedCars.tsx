@@ -7,9 +7,92 @@ import { resolveCarImage } from "@/lib/carImages";
 import type { CarRow } from "@/lib/database.types";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Loader2, Users, Zap, Fuel, Settings } from "lucide-react";
+import { ArrowRight, Loader2, Users, Zap, Fuel, Settings, Star } from "lucide-react";
 
-/** Premium horizontal product card — mobile fleet. */
+/** Hero "VÉHICULE PHARE" card — glassmorphism, full-width product image. */
+function FeaturedMobileCard({ car }: { car: CarRow }) {
+  const img = resolveCarImage(car.name, car.image);
+  const isDataUrl = img.startsWith("data:");
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 34 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      whileHover={{ y: -6 }}
+    >
+      <Link href={`/cars/${car.id}`} className="group block">
+        <div className="relative overflow-hidden rounded-[32px] border border-[#D4AF37]/15 bg-white/[0.03] p-5 shadow-[0_0_40px_rgba(212,175,55,0.08)] backdrop-blur-xl transition-shadow duration-500 group-hover:shadow-[0_0_55px_rgba(212,175,55,0.18)]">
+          {/* top gold hairline */}
+          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#D4AF37]/50 to-transparent" />
+
+          {/* Badge */}
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-[#D4AF37]/30 bg-[#D4AF37]/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-[#D4AF37]">
+            <Star size={11} className="fill-[#D4AF37] text-[#D4AF37]" />
+            Véhicule phare
+          </span>
+
+          {/* Large product image */}
+          <div className="relative mt-4 h-52 w-full">
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(212,175,55,0.14),transparent_62%)]" />
+            <Image
+              src={img}
+              alt={car.name}
+              fill
+              unoptimized={isDataUrl}
+              sizes="100vw"
+              className="object-contain transition-transform duration-500 group-hover:scale-105"
+            />
+          </div>
+
+          {/* Info */}
+          <div className="mt-4">
+            <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#D4AF37]">
+              {car.tier ?? car.category ?? "Véhicule"}
+            </p>
+            <h3 className="mt-1.5 font-display text-2xl font-bold leading-tight text-white">
+              {car.name}
+            </h3>
+
+            <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-[#888]">
+              <span className="inline-flex items-center gap-1.5">
+                <Users className="h-3.5 w-3.5 text-[#D4AF37]" />
+                {car.seats ?? 5} places
+              </span>
+              <span className="inline-flex items-center gap-1.5">
+                <Fuel className="h-3.5 w-3.5 text-[#D4AF37]" />
+                {car.fuel ?? "—"}
+              </span>
+              <span className="inline-flex items-center gap-1.5">
+                <Settings className="h-3.5 w-3.5 text-[#D4AF37]" />
+                {car.transmission === "Automatique" ? "Auto" : "Manuelle"}
+              </span>
+            </div>
+
+            <div className="mt-5 flex items-end justify-between border-t border-white/[0.06] pt-4">
+              <div>
+                <p className="text-[10px] text-[#666]">À partir de</p>
+                <p className="font-display text-2xl font-black text-[#D4AF37]">
+                  {car.price}
+                  <span className="ml-1 text-xs font-normal text-[#888]">
+                    TND/j
+                  </span>
+                </p>
+              </div>
+              <span className="flex items-center gap-2 rounded-full bg-[#D4AF37] px-5 py-2.5 text-sm font-bold text-black shadow-[0_0_20px_rgba(212,175,55,0.25)]">
+                Réserver
+                <ArrowRight size={15} />
+              </span>
+            </div>
+          </div>
+        </div>
+      </Link>
+    </motion.div>
+  );
+}
+
+/** Premium one-per-row glass product card — mobile fleet. */
 function MobileFleetCard({ car, index }: { car: CarRow; index: number }) {
   const img = resolveCarImage(car.name, car.image);
   const isDataUrl = img.startsWith("data:");
@@ -19,10 +102,11 @@ function MobileFleetCard({ car, index }: { car: CarRow; index: number }) {
       initial={{ opacity: 0, y: 26 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.55, delay: index * 0.06 }}
+      transition={{ duration: 0.5, delay: index * 0.06 }}
+      whileHover={{ y: -5 }}
     >
-      <Link href={`/cars/${car.id}`} className="block">
-        <div className="relative flex gap-4 overflow-hidden rounded-3xl border border-[#D4AF37]/12 bg-[#0B0B0B] p-3.5 shadow-[0_0_30px_rgba(212,175,55,0.04)]">
+      <Link href={`/cars/${car.id}`} className="group block">
+        <div className="relative flex gap-4 overflow-hidden rounded-[28px] border border-[#D4AF37]/12 bg-white/[0.03] p-4 shadow-[0_0_30px_rgba(212,175,55,0.05)] backdrop-blur-xl transition-shadow duration-500 group-hover:border-[#D4AF37]/30 group-hover:shadow-[0_0_42px_rgba(212,175,55,0.14)]">
           {/* top gold hairline */}
           <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#D4AF37]/40 to-transparent" />
 
@@ -35,7 +119,7 @@ function MobileFleetCard({ car, index }: { car: CarRow; index: number }) {
               fill
               unoptimized={isDataUrl}
               sizes="50vw"
-              className="object-contain"
+              className="object-contain transition-transform duration-500 group-hover:scale-105"
             />
           </div>
 
@@ -73,7 +157,7 @@ function MobileFleetCard({ car, index }: { car: CarRow; index: number }) {
                   </span>
                 </p>
               </div>
-              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#D4AF37] text-black shadow-[0_0_20px_rgba(212,175,55,0.25)]">
+              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#D4AF37] text-black shadow-[0_0_20px_rgba(212,175,55,0.25)] transition-transform duration-300 group-hover:translate-x-0.5">
                 <ArrowRight size={16} />
               </span>
             </div>
@@ -87,6 +171,7 @@ function MobileFleetCard({ car, index }: { car: CarRow; index: number }) {
 export default function FeaturedCars() {
   const { cars, loading, error } = useCars();
   const featured = cars.filter((c) => c.available).slice(0, 6);
+  const [featuredCar, ...rest] = featured;
 
   return (
     <section className="bg-[#050505] py-20">
@@ -98,9 +183,11 @@ export default function FeaturedCars() {
               Notre Flotte
             </p>
             <h2 className="font-display text-[2rem] font-bold leading-tight text-white">
-              Six véhicules,
+              Des véhicules d&apos;exception.
               <br />
-              chacun d&apos;exception.
+              <span className="text-[#9a9a9a]">
+                Chaque trajet, une expérience unique.
+              </span>
             </h2>
           </div>
 
@@ -119,7 +206,8 @@ export default function FeaturedCars() {
             </p>
           ) : (
             <div className="flex flex-col gap-5">
-              {featured.map((car, index) => (
+              {featuredCar && <FeaturedMobileCard car={featuredCar} />}
+              {rest.map((car, index) => (
                 <MobileFleetCard key={car.id} car={car} index={index} />
               ))}
             </div>
