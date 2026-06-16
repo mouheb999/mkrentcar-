@@ -28,7 +28,7 @@ function CarsPageInner() {
   const qs = searchParams.toString();
 
   const [activeCategory, setActiveCategory] = useState("Tout");
-  const [priceRange, setPriceRange] = useState(200);
+  const [priceRange, setPriceRange] = useState(1000);
   const [showFilters, setShowFilters] = useState(false);
 
   const { cars, loading, error } = useCars();
@@ -145,15 +145,15 @@ function CarsPageInner() {
                 <input
                   type="range"
                   min={100}
-                  max={200}
-                  step={5}
+                  max={1000}
+                  step={50}
                   value={priceRange}
                   onChange={(e) => setPriceRange(Number(e.target.value))}
                   className="w-full accent-accent"
                 />
                 <div className="flex justify-between text-xs text-cream/40 mt-1">
                   <span>100 TND</span>
-                  <span>200 TND</span>
+                  <span>1000 TND</span>
                 </div>
               </div>
 
@@ -207,7 +207,7 @@ function CarsPageInner() {
                       <button
                         onClick={() => {
                           setActiveCategory("Tout");
-                          setPriceRange(200);
+                          setPriceRange(1000);
                         }}
                         className="mt-4 text-accent text-sm font-medium hover:underline"
                       >
