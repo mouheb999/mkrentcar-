@@ -105,37 +105,21 @@ function MobileHero() {
       ref={ref}
       className="md:hidden relative flex min-h-[100svh] flex-col overflow-hidden bg-[#050505]"
     >
-      {/* Large gold radial glow rising from behind the vehicle */}
-      <motion.div
-        style={{ opacity: glowOpacity }}
-        className="pointer-events-none absolute inset-x-0 bottom-0 z-0 h-[78vh] bg-[radial-gradient(circle_at_50%_92%,rgba(212,175,55,0.22),rgba(212,175,55,0.06)_38%,transparent_68%)]"
-      />
       {/* Ambient halo behind the headline */}
-      <div className="pointer-events-none absolute -top-24 left-1/2 z-0 h-[380px] w-[150%] -translate-x-1/2 bg-[radial-gradient(ellipse_at_center,rgba(212,175,55,0.08),transparent_60%)]" />
+      <div className="pointer-events-none absolute -top-24 left-1/2 z-0 h-[360px] w-[150%] -translate-x-1/2 bg-[radial-gradient(ellipse_at_center,rgba(212,175,55,0.08),transparent_60%)]" />
 
       <GoldParticles />
 
-      {/* ── Content ── */}
+      {/* ── Title ── */}
       <motion.div
         variants={stagger}
         initial="hidden"
         animate="show"
-        className="relative z-10 px-6 pt-28"
+        className="relative z-10 px-6 pt-32"
       >
-        <motion.div variants={rise}>
-          <Image
-            src="/logo.png"
-            alt="Saoudy Rent Car"
-            width={150}
-            height={50}
-            priority
-            className="h-12 w-auto"
-          />
-        </motion.div>
-
         <motion.p
           variants={rise}
-          className="mt-10 text-[11px] font-bold uppercase tracking-[0.42em] text-[#D4AF37]"
+          className="text-[11px] font-bold uppercase tracking-[0.42em] text-[#D4AF37]"
         >
           Saoudy Rent Car — Tunisie
         </motion.p>
@@ -161,52 +145,62 @@ function MobileHero() {
         >
           Transferts VIP &amp; chauffeur privé.
         </motion.p>
-
-        <motion.div variants={rise} className="mt-9 flex flex-col gap-3">
-          <Link href="/reserve">
-            <motion.button
-              whileTap={{ scale: 0.97 }}
-              className="flex w-full items-center justify-center gap-2 rounded-full bg-[#D4AF37] px-7 py-4 text-sm font-bold text-black shadow-[0_0_34px_rgba(212,175,55,0.28)] transition-colors hover:bg-[#C49B27]"
-            >
-              Réserver maintenant
-              <ArrowRight size={16} />
-            </motion.button>
-          </Link>
-          <a
-            href={whatsappLink(
-              "Bonjour Saoudy Rent Car, je souhaite réserver un véhicule."
-            )}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex w-full items-center justify-center gap-2 rounded-full border border-[#D4AF37]/40 bg-white/[0.02] px-7 py-4 text-sm font-semibold text-white transition-colors hover:border-[#D4AF37]"
-          >
-            <MessageCircle size={15} />
-            Contact WhatsApp
-          </a>
-        </motion.div>
       </motion.div>
 
-      {/* Push the car to the bottom of the viewport */}
-      <div className="flex-1" />
-
-      {/* ── BMW emerging from darkness — artwork, not a card ── */}
-      <motion.div
-        initial={{ opacity: 0, scale: 1.06 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-        style={{ y: carY }}
-        className="relative z-[6] -mt-6 h-[46vh] w-full"
-      >
-        <Image
-          src={HERO_IMG_MOBILE}
-          alt="Saoudy Rent Car — BMW 5 Series"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-top [mask-image:linear-gradient(to_bottom,transparent,black_20%,black_82%,transparent)] [-webkit-mask-image:linear-gradient(to_bottom,transparent,black_20%,black_82%,transparent)]"
+      {/* ── BMW showcase — centered between title and buttons ── */}
+      <div className="relative flex flex-1 items-center justify-center">
+        {/* Large gold radial glow behind the vehicle */}
+        <motion.div
+          style={{ opacity: glowOpacity }}
+          className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(circle_at_50%_52%,rgba(212,175,55,0.24),rgba(212,175,55,0.06)_40%,transparent_70%)]"
         />
-        {/* Fade-to-black at the very bottom */}
-        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#050505] via-[#050505]/70 to-transparent" />
+        <motion.div
+          initial={{ opacity: 0, scale: 1.06 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+          style={{ y: carY }}
+          className="relative z-[6] my-2 h-[42vh] w-full"
+        >
+          <Image
+            src={HERO_IMG_MOBILE}
+            alt="Saoudy Rent Car — BMW 5 Series"
+            fill
+            priority
+            sizes="100vw"
+            className="object-contain object-center"
+          />
+        </motion.div>
+      </div>
+
+      {/* ── CTAs at the bottom ── */}
+      <motion.div
+        variants={stagger}
+        initial="hidden"
+        animate="show"
+        className="relative z-10 flex flex-col gap-3 px-6 pb-12"
+      >
+        <Link href="/reserve">
+          <motion.button
+            variants={rise}
+            whileTap={{ scale: 0.97 }}
+            className="flex w-full items-center justify-center gap-2 rounded-full bg-[#D4AF37] px-7 py-4 text-sm font-bold text-black shadow-[0_0_34px_rgba(212,175,55,0.28)] transition-colors hover:bg-[#C49B27]"
+          >
+            Réserver maintenant
+            <ArrowRight size={16} />
+          </motion.button>
+        </Link>
+        <motion.a
+          variants={rise}
+          href={whatsappLink(
+            "Bonjour Saoudy Rent Car, je souhaite réserver un véhicule."
+          )}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex w-full items-center justify-center gap-2 rounded-full border border-[#D4AF37]/40 bg-white/[0.02] px-7 py-4 text-sm font-semibold text-white transition-colors hover:border-[#D4AF37]"
+        >
+          <MessageCircle size={15} />
+          Contact WhatsApp
+        </motion.a>
       </motion.div>
     </section>
   );

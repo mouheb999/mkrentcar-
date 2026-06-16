@@ -23,9 +23,9 @@ function FeaturedMobileCard({ car }: { car: CarRow }) {
       whileHover={{ y: -6 }}
     >
       <Link href={`/cars/${car.id}`} className="group block">
-        <div className="relative overflow-hidden rounded-[32px] border border-[#D4AF37]/15 bg-white/[0.03] p-5 shadow-[0_0_40px_rgba(212,175,55,0.08)] backdrop-blur-xl transition-shadow duration-500 group-hover:shadow-[0_0_55px_rgba(212,175,55,0.18)]">
-          {/* top gold hairline */}
-          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#D4AF37]/50 to-transparent" />
+        <div className="relative overflow-hidden rounded-[32px] border border-[#1A1A1A] bg-[#0A0A0A] p-5 shadow-[0_10px_40px_rgba(0,0,0,0.5)] transition-all duration-500 group-hover:border-[#D4AF37] group-hover:shadow-[0_0_45px_rgba(212,175,55,0.20)] group-active:border-[#D4AF37] group-active:shadow-[0_0_45px_rgba(212,175,55,0.20)]">
+          {/* top gold hairline — reveals on touch */}
+          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#D4AF37]/50 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100 group-active:opacity-100" />
 
           {/* Badge */}
           <span className="inline-flex items-center gap-1.5 rounded-full border border-[#D4AF37]/30 bg-[#D4AF37]/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-[#D4AF37]">
@@ -106,9 +106,9 @@ function MobileFleetCard({ car, index }: { car: CarRow; index: number }) {
       whileHover={{ y: -5 }}
     >
       <Link href={`/cars/${car.id}`} className="group block">
-        <div className="relative flex gap-4 overflow-hidden rounded-[28px] border border-[#D4AF37]/12 bg-white/[0.03] p-4 shadow-[0_0_30px_rgba(212,175,55,0.05)] backdrop-blur-xl transition-shadow duration-500 group-hover:border-[#D4AF37]/30 group-hover:shadow-[0_0_42px_rgba(212,175,55,0.14)]">
-          {/* top gold hairline */}
-          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#D4AF37]/40 to-transparent" />
+        <div className="relative flex gap-4 overflow-hidden rounded-[28px] border border-[#1A1A1A] bg-[#0A0A0A] p-4 shadow-[0_10px_30px_rgba(0,0,0,0.5)] transition-all duration-500 group-hover:border-[#D4AF37] group-hover:shadow-[0_0_42px_rgba(212,175,55,0.16)] group-active:border-[#D4AF37] group-active:shadow-[0_0_42px_rgba(212,175,55,0.16)]">
+          {/* top gold hairline — reveals on touch */}
+          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#D4AF37]/40 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100 group-active:opacity-100" />
 
           {/* Large product image */}
           <div className="relative aspect-[5/4] w-[46%] shrink-0 self-center">
