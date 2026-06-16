@@ -184,10 +184,6 @@ export default function FeaturedCars() {
             </p>
             <h2 className="font-display text-[2rem] font-bold leading-tight text-white">
               Des véhicules d&apos;exception.
-              <br />
-              <span className="text-[#9a9a9a]">
-                Chaque trajet, une expérience unique.
-              </span>
             </h2>
           </div>
 
