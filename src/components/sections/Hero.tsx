@@ -147,19 +147,19 @@ function MobileHero() {
         </motion.p>
       </motion.div>
 
-      {/* ── BMW showcase — centered between title and buttons ── */}
+      {/* ── BMW showcase — full-bleed, smoothly faded into the page ── */}
       <div className="relative flex flex-1 items-center justify-center">
-        {/* Large gold radial glow behind the vehicle */}
+        {/* Gold radial glow behind the vehicle */}
         <motion.div
           style={{ opacity: glowOpacity }}
-          className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(circle_at_50%_52%,rgba(212,175,55,0.24),rgba(212,175,55,0.06)_40%,transparent_70%)]"
+          className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(circle_at_50%_50%,rgba(212,175,55,0.22),rgba(212,175,55,0.05)_46%,transparent_72%)]"
         />
         <motion.div
           initial={{ opacity: 0, scale: 1.06 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
           style={{ y: carY }}
-          className="relative z-[6] my-2 h-[42vh] w-full"
+          className="relative z-[6] h-[34vh] w-full"
         >
           <Image
             src={HERO_IMG_MOBILE}
@@ -167,7 +167,7 @@ function MobileHero() {
             fill
             priority
             sizes="100vw"
-            className="object-contain object-center"
+            className="object-cover object-center [mask-image:linear-gradient(to_bottom,transparent_0%,black_24%,black_76%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_bottom,transparent_0%,black_24%,black_76%,transparent_100%)]"
           />
         </motion.div>
       </div>
