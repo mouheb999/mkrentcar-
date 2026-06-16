@@ -9,7 +9,7 @@ import { site, whatsappLink, telLink } from "@/lib/site";
 const footerLinks = {
   Navigation: [
     { label: "Accueil", href: "/" },
-    { label: "Notre flotte", href: "/cars" },
+    { label: "Nos voitures", href: "/cars" },
     { label: "Services", href: "/services" },
     { label: "Réserver", href: "/reserve" },
   ],

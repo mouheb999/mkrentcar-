@@ -146,7 +146,7 @@ function BookingInner() {
             Aucun véhicule sélectionné
           </h2>
           <p className="text-cream/50 mb-6 text-sm">
-            Choisissez d&rsquo;abord une voiture dans notre flotte pour lancer
+            Choisissez d&rsquo;abord une voiture dans notre catalogue pour lancer
             une réservation.
           </p>
           <Link
@@ -180,7 +180,7 @@ function BookingInner() {
           href="/cars"
           className="text-accent mt-6 inline-block text-sm font-medium"
         >
-          ← Retour à la flotte
+          ← Retour aux voitures
         </Link>
       </div>
     );

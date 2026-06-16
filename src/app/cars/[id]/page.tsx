@@ -98,7 +98,7 @@ function CarDetailInner() {
       <div className="pt-40 pb-20 text-center">
         <h1 className="text-2xl font-bold text-cream">Véhicule introuvable</h1>
         <Link href="/cars" className="text-accent mt-4 inline-block">
-          Retour à la flotte
+          Retour aux voitures
         </Link>
       </div>
     );
@@ -129,7 +129,7 @@ function CarDetailInner() {
             className="inline-flex items-center gap-2 text-sm text-[#888] hover:text-[#D4AF37] transition-colors"
           >
             <ArrowLeft size={14} />
-            Retour à la flotte
+            Retour aux voitures
           </Link>
         </motion.div>
 

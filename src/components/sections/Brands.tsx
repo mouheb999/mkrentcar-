@@ -7,7 +7,7 @@ export default function Brands() {
     <section className="border-y border-[#1A1A1A] py-14 bg-[#050505]">
       <div className="max-w-7xl mx-auto px-4 sm:px-8">
         <p className="text-center text-xs font-bold tracking-[0.3em] text-[#D4AF37] uppercase mb-10">
-          Une flotte de marques prestigieuses
+          Des marques prestigieuses
         </p>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
           {brands.map((brand) => (

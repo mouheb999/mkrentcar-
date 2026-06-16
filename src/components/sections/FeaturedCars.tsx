@@ -170,7 +170,7 @@ function MobileFleetCard({ car, index }: { car: CarRow; index: number }) {
 
 export default function FeaturedCars() {
   const { cars, loading, error } = useCars();
-  const featured = cars.filter((c) => c.available).slice(0, 6);
+  const featured = cars.filter((c) => c.available);
   const [featuredCar, ...rest] = featured;
 
   return (
@@ -180,7 +180,7 @@ export default function FeaturedCars() {
         <div className="md:hidden">
           <div className="mb-9">
             <p className="mb-2.5 text-[11px] font-bold uppercase tracking-[0.32em] text-[#D4AF37]">
-              Notre Flotte
+              Nos Voitures
             </p>
             <h2 className="font-display text-[2rem] font-bold leading-tight text-white">
               Des véhicules d&apos;exception.
@@ -307,7 +307,7 @@ export default function FeaturedCars() {
         <div className="flex items-end justify-between mb-10">
           <div>
             <p className="text-[#D4AF37] text-xs font-bold tracking-[0.3em] uppercase mb-2">
-              Notre Flotte
+              Nos Voitures
             </p>
             <h2 className="text-3xl md:text-4xl font-black text-white">
               Des voitures pour

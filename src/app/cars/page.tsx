@@ -56,7 +56,7 @@ function CarsPageInner() {
           <div className="flex items-center gap-3 mb-4">
             <span className="h-px w-8 bg-accent" />
             <p className="text-xs uppercase tracking-[0.3em] text-accent font-semibold">
-              Notre flotte
+              Nos voitures
             </p>
           </div>
           <h1 className="text-4xl md:text-5xl font-display font-bold text-cream tracking-tight">

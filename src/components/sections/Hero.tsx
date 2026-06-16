@@ -11,7 +11,7 @@ const HERO_IMG = "/cars/bmw-5-series-front.png";
 const HERO_IMG_MOBILE = "/cars/hero-mobile.png";
 
 const stats = [
-  { icon: Crown, title: "Flotte premium", sub: "BMW · Mercedes · VW" },
+  { icon: Crown, title: "Voitures premium", sub: "BMW · Mercedes · VW" },
   { icon: UserCheck, title: "Chauffeurs pro", sub: "discrets & ponctuels" },
   { icon: Clock, title: "Disponible 24/7", sub: "réservation rapide" },
   { icon: Plane, title: "Transferts VIP", sub: "aéroport & événements" },
@@ -253,7 +253,7 @@ export default function Hero() {
               </h1>
               <p className="text-[#9a9a9a] text-base mb-10 max-w-lg leading-relaxed">
                 Location premium, transferts VIP et services de chauffeur avec une
-                flotte moderne BMW, Mercedes, Volkswagen et Fiat.
+                gamme moderne BMW, Mercedes, Volkswagen et Fiat.
               </p>
               {ctaButtons}
             </motion.div>
